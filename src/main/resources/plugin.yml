@@ -1,0 +1,25 @@
+name: IceLobby
+version: '${project.version}'
+main: de.zblubba.icelobby.IceLobby
+api-version: 1.19
+authors: [ zBlubba ]
+description: IceLobby Plugin
+website: https://zblubba.de
+
+commands:
+  fly:
+    description: Allows players to toggle fly
+  clearchat:
+    description: cleart the chat
+  spawn:
+    description: teleports a player to the spawn
+    aliases:
+      - l
+      - hub
+      - lobby
+  tpall:
+    description: teleports every player to you
+  globalmute:
+    description: mutes every player without permission
+  help:
+    description: helps you to get a better overview

@@ -1,6 +1,7 @@
 package de.zblubba.icelobby.commands;
 
 import de.zblubba.icelobby.IceLobby;
+import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,7 +12,7 @@ public class ClearChatCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String noPerms = IceLobby.getNoPermission; noPerms = noPerms.replace("&", "§");
+        String noPerms = MessageCollection.getNoPerms();
         int amount = 50;
 
         if(sender.hasPermission("icelobby.chat.clear")) {

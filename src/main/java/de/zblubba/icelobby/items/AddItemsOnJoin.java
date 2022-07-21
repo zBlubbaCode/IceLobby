@@ -11,9 +11,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class AddItemsOnJoin implements Listener {
 
@@ -26,27 +27,22 @@ public class AddItemsOnJoin implements Listener {
         if(itemConfig.getBoolean("items.clearinvonjoin")) p.getInventory().clear();
 
         if(itemConfig.getBoolean("items.enabled") && itemConfig.getBoolean("items.addonjoin")) {
-
-            ItemStack item1 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem1type())).setName(MessageCollection.getHotbarItem1Name()).setLore(MessageCollection.getHotbarItem1Lore()).build();
-            ItemStack item2 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem2type())).setName(MessageCollection.getHotbarItem2Name()).setLore(MessageCollection.getHotbarItem2Lore()).build();
-            ItemStack item3 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem3type())).setName(MessageCollection.getHotbarItem3Name()).setLore(MessageCollection.getHotbarItem3Lore()).build();
-            ItemStack item4 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem4type())).setName(MessageCollection.getHotbarItem4Name()).setLore(MessageCollection.getHotbarItem4Lore()).build();
-            ItemStack item5 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem5type())).setName(MessageCollection.getHotbarItem5Name()).setLore(MessageCollection.getHotbarItem5Lore()).build();
-            ItemStack item6 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem6type())).setName(MessageCollection.getHotbarItem6Name()).setLore(MessageCollection.getHotbarItem6Lore()).build();
-            ItemStack item7 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem7type())).setName(MessageCollection.getHotbarItem7Name()).setLore(MessageCollection.getHotbarItem7Lore()).build();
-            ItemStack item8 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem8type())).setName(MessageCollection.getHotbarItem8Name()).setLore(MessageCollection.getHotbarItem8Lore()).build();
-            ItemStack item9 = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItem9type())).setName(MessageCollection.getHotbarItem9Name()).setLore(MessageCollection.getHotbarItem9Lore()).build();
-
-            Inventory inv = p.getInventory();
-            if(itemConfig.getBoolean("items.hotbar.1.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.1.slot"), item1);
-            if(itemConfig.getBoolean("items.hotbar.2.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.2.slot"), item2);
-            if(itemConfig.getBoolean("items.hotbar.3.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.3.slot"), item3);
-            if(itemConfig.getBoolean("items.hotbar.4.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.4.slot"), item4);
-            if(itemConfig.getBoolean("items.hotbar.5.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.5.slot"), item5);
-            if(itemConfig.getBoolean("items.hotbar.6.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.6.slot"), item6);
-            if(itemConfig.getBoolean("items.hotbar.7.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.7.slot"), item7);
-            if(itemConfig.getBoolean("items.hotbar.8.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.8.slot"), item8);
-            if(itemConfig.getBoolean("items.hotbar.9.enabled")) inv.setItem(itemConfig.getInt("items.hotbar.9.slot"), item9);
+            for(int i = 1; i < 10; i++) {
+                if(!MessageCollection.getHotbarItemType(i).equals("OWN_HEAD")) {
+                    ItemStack item = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItemType(i))).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build();
+                    Inventory inv = p.getInventory();
+                    if(itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(itemConfig.getInt("items.hotbar." + i + ".slot"), item);
+                } else {
+                    ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+                    SkullMeta meta = (SkullMeta) skull.getItemMeta();
+                    meta.setOwningPlayer(p);
+                    meta.setDisplayName(MessageCollection.getHotbarItemName(i));
+                    meta.setLore(Arrays.asList(MessageCollection.getHotbarItemLore(i)));
+                    skull.setItemMeta(meta);
+                    Inventory inv = p.getInventory();
+                    if(itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(itemConfig.getInt("items.hotbar." + i + ".slot"), skull);
+                }
+            }
         }
 
     }

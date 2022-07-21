@@ -17,10 +17,6 @@ public final class IceLobby extends JavaPlugin {
     public static File configFile = new File("plugins/IceLobby", "config.yml");
     static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-    public static String getPrefix = config.getString("messages.util.prefix");
-    public static String getNoPermission = config.getString("messages.util.nopermission");
-    public static String getmustbeplayer = config.getString("messages.util.mustbeaplayertoperform");
-
     @Override
     public void onEnable() {
         instance = this;
@@ -76,10 +72,11 @@ public final class IceLobby extends JavaPlugin {
     public static IceLobby getInstance() { return instance; }
 
 }
-//TODO: MessageCollection add more variabled - {prefix}, {maxPlayers}, {onlineplayers}
-//TODO: rewrite commands to implement MessageCollection
+//TODO: CHECK - MessageCollection add more variabled - {prefix}, {maxPlayers}, {onlineplayers}
+//TODO: CHECK - rewrite commands to implement MessageCollection
 //TODO: add Compass
 //TODO: add own Player head to hotbar
 //TODO: CHECK - help command
 //TODO: CHECK - change unknown command message
+//TODO: interact with lobby items
 

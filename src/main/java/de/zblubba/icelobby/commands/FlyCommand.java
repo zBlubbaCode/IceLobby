@@ -1,32 +1,24 @@
 package de.zblubba.icelobby.commands;
 
-import de.zblubba.icelobby.IceLobby;
+import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-
 public class FlyCommand implements CommandExecutor {
-
-    public static File configFile = new File("plugins/IceLobby", "config.yml");
-    static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         String alias = "§cAlias: /fly <(on | off)> <(name)>   -   () = optional";
-        String flyOff = config.getString("messages.commands.fly.off"); flyOff = ChatColor.translateAlternateColorCodes('&', flyOff);
-        String flyOn = config.getString("messages.commands.fly.on"); flyOn = ChatColor.translateAlternateColorCodes('&', flyOn);
+        String flyOff = MessageCollection.getFlyOffMsg();
+        String flyOn = MessageCollection.getFlyOnMsg();
 
-        String prefix = IceLobby.getPrefix; prefix = ChatColor.translateAlternateColorCodes('&', prefix);
-        String noPerms = IceLobby.getNoPermission; noPerms = ChatColor.translateAlternateColorCodes('&', noPerms);
-        String mustbePlayer = IceLobby.getmustbeplayer; mustbePlayer = ChatColor.translateAlternateColorCodes('&', mustbePlayer);
+        String prefix = MessageCollection.getPrefix();
+        String noPerms = MessageCollection.getNoPerms();
+        String mustbePlayer = MessageCollection.mustbePlayer();
 
         if(sender instanceof Player p) {
             if(p.hasPermission("icelobby.fly")) {

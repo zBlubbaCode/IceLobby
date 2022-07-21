@@ -39,6 +39,7 @@ public class ConfigBuilder {
             config.addDefault("messages.util.motd", "&bIce&9Lobby &8- &cMinigames Network &8- &7[&a1.8&7-&a1.19&7]\n                 &a&lNEW Lobby Plugin!");
             config.addDefault("messages.util.actionbar.enabled", true);
             config.addDefault("messages.util.actionbar.message", "&bIce&9Lobby &8- &aNEW Lobby Plugin!");
+            config.addDefault("messages.util.commanddoesnotexist", "§cThis command does not exist!");
 
             config.addDefault("messages.commands.fly.off", "&7Fly &cdisabled&7!");
             config.addDefault("messages.commands.fly.on", "&7Fly &aenabled&7!");

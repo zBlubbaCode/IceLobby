@@ -1,5 +1,6 @@
 package de.zblubba.icelobby.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -19,6 +20,7 @@ public class MessageCollection {
     public static String getPrefix() {String prefix = config.getString("messages.util.prefix"); prefix = prefix.replace('&', '§');return prefix;}
     public static String getNoPerms() {String noPerms = config.getString("messages.util.nopermission"); noPerms = noPerms.replace('&', '§');return noPerms;}
     public static String mustbePlayer() {String mustbePlayer = config.getString("messages.util.mustbeaplayertoperform"); mustbePlayer = mustbePlayer.replace('&', '§');return mustbePlayer;}
+    public static String commandNotExist() {String notExist = config.getString("messages.util.commanddoesnotexist");notExist = notExist.replace("&", "§");return notExist;}
 
     //items
     public static String getHotbarItem1Name() {String hotbarItem1Name = itemConfig.getString("items.hotbar.1.name");hotbarItem1Name = hotbarItem1Name.replace('&', '§');return hotbarItem1Name;}
@@ -70,4 +72,22 @@ public class MessageCollection {
     public static String getWarpCreated(String warpName) {String warpCreated = config.getString("messages.commands.warpcommand.created"); warpCreated = warpCreated.replace('&', '§');warpCreated = warpCreated.replace("{warpname}", warpName);return warpCreated;}
     public static String getWarpDeleted(String warpName) {String warpDeleted = config.getString("messages.commands.warpcommand.deleted"); warpDeleted = warpDeleted.replace('&', '§');warpDeleted = warpDeleted.replace("{warpname}", warpName);return warpDeleted;}
     public static String getWarpExists(String warpName) {String warpExists = config.getString("messages.commands.warpcommand.exists"); warpExists = warpExists.replace('&', '§');warpExists = warpExists.replace("{warpname}", warpName);return warpExists;}
+
+
+
+
+
+
+    public static String replaceWithVariables(String input) {
+        String prefix = getPrefix();
+        int onlinePlayersInt = Bukkit.getServer().getOnlinePlayers().size();String onlinePlayers = String.valueOf(onlinePlayersInt);
+        int maxPlayersInt = Bukkit.getMaxPlayers();String maxPlayers = String.valueOf(maxPlayersInt);
+
+        input = input.replace("&", "§");
+        input = input.replace("{prefix}", prefix);
+        input = input.replace("{onlineplayers}", onlinePlayers);
+        input = input.replace("{maxplayers", maxPlayers);
+
+        return input;
+    }
 }

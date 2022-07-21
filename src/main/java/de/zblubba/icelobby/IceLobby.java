@@ -23,6 +23,7 @@ public final class IceLobby extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         ConfigBuilder.checkConfigs();
         registerListeners();
         registerCommands();
@@ -32,7 +33,7 @@ public final class IceLobby extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§bProduct§8: §bIce§9Lobby");
         Bukkit.getConsoleSender().sendMessage("§bStatus: §8: §aActive");
         Bukkit.getConsoleSender().sendMessage("§bDeveloper§8: §bzBlubba");
-        Bukkit.getConsoleSender().sendMessage("§bVersion§8: §b" + Main.getInstance().getDescription().getVersion());
+        Bukkit.getConsoleSender().sendMessage("§bVersion§8: §b" + IceLobby.getInstance().getDescription().getVersion());
         Bukkit.getConsoleSender().sendMessage("§bOS§8: §b" + System.getProperty("os.name"));
         Bukkit.getConsoleSender().sendMessage("§bJava-Version§8: §b" + System.getProperty("java.version"));
         Bukkit.getConsoleSender().sendMessage("");
@@ -46,7 +47,7 @@ public final class IceLobby extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§bProduct§8: §bIce§9Lobby");
         Bukkit.getConsoleSender().sendMessage("§bStatus: §8: §cDeactivated");
         Bukkit.getConsoleSender().sendMessage("§bDeveloper§8: §bzBlubba");
-        Bukkit.getConsoleSender().sendMessage("§bVersion§8: §b" + Main.getInstance().getDescription().getVersion());
+        Bukkit.getConsoleSender().sendMessage("§bVersion§8: §b" + IceLobby.getInstance().getDescription().getVersion());
         Bukkit.getConsoleSender().sendMessage("§bOS§8: §b" + System.getProperty("os.name"));
         Bukkit.getConsoleSender().sendMessage("§bJava-Version§8: §b" + System.getProperty("java.version"));
         Bukkit.getConsoleSender().sendMessage("");
@@ -71,11 +72,14 @@ public final class IceLobby extends JavaPlugin {
         getCommand("help").setExecutor(new HelpCommand());
     }
 
+    public static IceLobby instance;
+    public static IceLobby getInstance() { return instance; }
+
 }
 //TODO: MessageCollection add more variabled - {prefix}, {maxPlayers}, {onlineplayers}
 //TODO: rewrite commands to implement MessageCollection
 //TODO: add Compass
 //TODO: add own Player head to hotbar
-//TODO: help command
-//TODO: change unknown command message
+//TODO: CHECK - help command
+//TODO: CHECK - change unknown command message
 

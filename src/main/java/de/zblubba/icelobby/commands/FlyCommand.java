@@ -21,7 +21,7 @@ public class FlyCommand implements CommandExecutor {
         String mustbePlayer = MessageCollection.mustbePlayer();
 
         if(sender instanceof Player p) {
-            if(p.hasPermission("icelobby.fly")) {
+            if(p.hasPermission("icelobby.commands.fly")) {
                 if(args.length == 0) {
                     if(p.getAllowFlight()) {
                         toggleFly(p, false, flyOff, flyOn, prefix);

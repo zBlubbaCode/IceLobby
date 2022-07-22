@@ -19,7 +19,7 @@ public class TpAllCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player p) {
-            if(p.hasPermission("icelobby.tpall")) {
+            if(p.hasPermission("icelobby.commands.teleportall")) {
                 String ownMessage = config.getString("messages.commands.tpall.ownmessage"); ownMessage = ownMessage.replace('&', '§');
                 ownMessage = ownMessage.replace("{user}", p.getName());
                 String playersMessage = config.getString("messages.commands.tpall.players.message"); playersMessage = playersMessage.replace('&', '§');

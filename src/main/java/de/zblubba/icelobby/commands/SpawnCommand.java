@@ -42,7 +42,7 @@ public class SpawnCommand implements CommandExecutor {
                 } else p.sendMessage(spawnDisabled);
             } else if(args.length == 1) {
                 if(args[0].equalsIgnoreCase("set")) {
-                    if(sender.hasPermission("icelobby.setspawn")) {
+                    if(sender.hasPermission("icelobby.commands.setspawn")) {
                         Location loc = p.getLocation();
 
                         spawnConfig.set("spawn.world", loc.getWorld().getName());

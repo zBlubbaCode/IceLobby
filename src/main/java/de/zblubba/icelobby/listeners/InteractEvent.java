@@ -36,7 +36,7 @@ public class InteractEvent implements Listener {
                 double multiply = config.getDouble("events.launchpads.multiply");
                 double ymutliply = config.getDouble("events.launchpads.ymultiply");
 
-                if(block == launchblockMat && p.getLocation().getBlock().getType() == Material.OAK_PRESSURE_PLATE) {
+                if(block == launchblockMat && (p.getLocation().getBlock().getType() == Material.OAK_PRESSURE_PLATE || p.getLocation().getBlock().getType() == Material.STONE_PRESSURE_PLATE)) {
                     Vector v = p.getLocation().getDirection().multiply(multiply).setY(ymutliply);
                     p.setVelocity(v);
 

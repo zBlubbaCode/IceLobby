@@ -15,7 +15,7 @@ public class ClearChatCommand implements CommandExecutor {
         String noPerms = MessageCollection.getNoPerms();
         int amount = 50;
 
-        if(sender.hasPermission("icelobby.chat.clear")) {
+        if(sender.hasPermission("icelobby.commands.clearchat")) {
             //I use for every players, because broadcastmessage might produce errors
             for(Player players : Bukkit.getOnlinePlayers()) {
                 for(int i = 0; i <= amount; i++) {

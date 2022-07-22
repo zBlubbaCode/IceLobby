@@ -68,7 +68,7 @@ public final class IceLobby extends JavaPlugin {
         getCommand("fly").setExecutor(new FlyCommand());
         getCommand("clearchat").setExecutor(new ClearChatCommand());
         getCommand("spawn").setExecutor(new SpawnCommand());
-        getCommand("tpall").setExecutor(new TpAllCommand());
+        getCommand("teleportall").setExecutor(new TpAllCommand());
         getCommand("globalmute").setExecutor(new GlobalMuteCommand());
         getCommand("help").setExecutor(new HelpCommand());
         getCommand("navigator").setExecutor(new CompassGUI());
@@ -86,7 +86,10 @@ public final class IceLobby extends JavaPlugin {
 //TODO: CHECK - add own Player head to hotbar
 //TODO: CHECK - help command
 //TODO: CHECK - change unknown command message
-//TODO: interact with lobby items
+//TODO: CHECK - interact with lobby items
 //TODO: tablist
 //TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
+//TODO: hotbarItems can be moved + Offhand
+//TODO: Placeholder API
+//TODO: Build mode
 

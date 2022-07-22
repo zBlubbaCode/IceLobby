@@ -14,7 +14,7 @@ public class GlobalMuteCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player p) {
-            if(p.hasPermission("icelobby.globalmute")) {
+            if(p.hasPermission("icelobby.commands.globalmute")) {
                 setMuteStateOn(true);
                 for(Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(MessageCollection.getGlobalmuteBroadcastMessage());

@@ -11,16 +11,22 @@ commands:
     description: Allows players to toggle fly
   clearchat:
     description: cleart the chat
+    aliases:
+      - cc
   spawn:
     description: teleports a player to the spawn
     aliases:
       - l
       - hub
       - lobby
-  tpall:
+  teleportall:
     description: teleports every player to you
+    aliases:
+      - tpall
   globalmute:
     description: mutes every player without permission
+    aliases:
+      - gmute
   help:
     description: helps you to get a better overview
   navigator:

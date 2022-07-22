@@ -13,7 +13,6 @@ public class WarpCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         Player p = (Player) sender;
-        if (p.hasPermission("icelobby.warp")) {
             if (!(sender instanceof Player)) {
                 return false;
             }
@@ -46,9 +45,6 @@ public class WarpCommand implements CommandExecutor {
                     }
                 }
             }
-        } else {
-            p.sendMessage(MessageCollection.getNoPerms());
-        }
         return false;
     }
 }

@@ -52,6 +52,8 @@ public class ConfigBuilder {
             config.addDefault("messages.commands.warpcommand.created", "&7You created the warp &c{warpname}");
             config.addDefault("messages.commands.warpcommand.deleted", "&7You deleted the warp &c{warpname}");
             config.addDefault("messages.commands.warpcommand.exists", "&cThis warp already exists");
+            config.addDefault("messages.commands.warpcommand.notexists", "&cThis warp does not exist!");
+
 
             ArrayList<String> helpList = new ArrayList<>();
             helpList.add("&8======================================================");
@@ -142,7 +144,7 @@ public class ConfigBuilder {
             itemConfig.addDefault("items.hotbar.1.slot", 0);
             itemConfig.addDefault("items.hotbar.1.name", "&6Friends &7- &arightclick");
             itemConfig.addDefault("items.hotbar.1.lore", "&7Click to open friends menu");
-            itemConfig.addDefault("items.hotbar.1.type", "PLAYER_HEAD");
+            itemConfig.addDefault("items.hotbar.1.type", "OWN_HEAD");
             itemConfig.addDefault("items.hotbar.1.command", "friends");
 
             itemConfig.addDefault("items.hotbar.2.enabled", true);
@@ -201,8 +203,56 @@ public class ConfigBuilder {
             itemConfig.addDefault("items.hotbar.9.type", "NETHER_STAR");
             itemConfig.addDefault("items.hotbar.9.command", "lobbies");
 
+
+            itemConfig.addDefault("compass.gui.enabled", true);
             itemConfig.addDefault("compass.gui.title", "&9Navigator");
             itemConfig.addDefault("compass.gui.rows", 6);
+            itemConfig.addDefault("compass.gui.filledwithglass", true);
+
+
+
+            itemConfig.addDefault("compass.items.4.type", "BARRIER");
+            itemConfig.addDefault("compass.items.4.name", "&ccoming sooon!");
+            itemConfig.addDefault("compass.items.4.lore", "&8");
+            itemConfig.addDefault("compass.items.4.command", "nothing");
+
+            itemConfig.addDefault("compass.items.11.type", "BARRIER");
+            itemConfig.addDefault("compass.items.11.name", "&ccoming sooon!");
+            itemConfig.addDefault("compass.items.11.lore", "&8");
+            itemConfig.addDefault("compass.items.11.command", "nothing");
+
+            itemConfig.addDefault("compass.items.15.type", "BARRIER");
+            itemConfig.addDefault("compass.items.15.name", "&ccoming sooon!");
+            itemConfig.addDefault("compass.items.15.lore", "&8");
+            itemConfig.addDefault("compass.items.15.command", "nothing");
+
+            itemConfig.addDefault("compass.items.22.type", "NETHER_STAR");
+            itemConfig.addDefault("compass.items.22.name", "&6Spawn");
+            itemConfig.addDefault("compass.items.22.lore", "&7Click for teleporting to Spawn");
+            itemConfig.addDefault("compass.items.22.command", "warp spawn");
+
+            itemConfig.addDefault("compass.items.28.type", "BARRIER");
+            itemConfig.addDefault("compass.items.28.name", "&ccoming sooon!");
+            itemConfig.addDefault("compass.items.28.lore", "&8");
+            itemConfig.addDefault("compass.items.28.command", "nothing");
+
+            itemConfig.addDefault("compass.items.34.type", "BARRIER");
+            itemConfig.addDefault("compass.items.34.name", "&ccoming sooon!");
+            itemConfig.addDefault("compass.items.34.lore", "&8");
+            itemConfig.addDefault("compass.items.34.command", "nothing");
+
+            itemConfig.addDefault("compass.items.48.type", "BARRIER");
+            itemConfig.addDefault("compass.items.48.name", "&ccoming sooon!");
+            itemConfig.addDefault("compass.items.48.lore", "&8");
+            itemConfig.addDefault("compass.items.48.command", "nothing");
+
+            itemConfig.addDefault("compass.items.50.type", "BARRIER");
+            itemConfig.addDefault("compass.items.50.name", "&ccoming sooon!");
+            itemConfig.addDefault("compass.items.50.lore", "&8");
+            itemConfig.addDefault("compass.items.50.command", "nothing");
+
+
+
 
             itemConfig.options().copyHeader(true);
             itemConfig.options().copyDefaults(true);

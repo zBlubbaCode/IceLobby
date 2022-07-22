@@ -23,7 +23,7 @@ public class WarpCommand implements CommandExecutor {
                     p.setGameMode(GameMode.CREATIVE);
                     p.sendMessage(MessageCollection.getWarpTeleported(args[0]));
                 } else {
-                    p.sendMessage(MessageCollection.getWarpExists(args[0]));
+                    p.sendMessage(MessageCollection.getWarpNotExist(args[0]));
                 }
             } else if (args.length == 2) {
                 if (!p.hasPermission("icelobby.warp.manage")) {
@@ -42,7 +42,7 @@ public class WarpCommand implements CommandExecutor {
                         WarpManager.deleteWarp(args[1]);
                         p.sendMessage(MessageCollection.getWarpDeleted(args[1]));
                     } else {
-                        p.sendMessage(MessageCollection.getWarpExists(args[1]));
+                        p.sendMessage(MessageCollection.getWarpNotExist(args[1]));
                     }
                 }
             }

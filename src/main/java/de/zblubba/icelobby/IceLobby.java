@@ -2,6 +2,9 @@ package de.zblubba.icelobby;
 
 import de.zblubba.icelobby.commands.*;
 import de.zblubba.icelobby.items.AddItemsOnJoin;
+import de.zblubba.icelobby.items.CompassGUI;
+import de.zblubba.icelobby.items.CompassGUIListener;
+import de.zblubba.icelobby.items.WarpCommand;
 import de.zblubba.icelobby.listeners.*;
 import de.zblubba.icelobby.util.ConfigBuilder;
 import org.bukkit.Bukkit;
@@ -58,6 +61,8 @@ public final class IceLobby extends JavaPlugin {
         pm.registerEvents(new AddItemsOnJoin(), this);
         pm.registerEvents(new ChatListener(), this);
         pm.registerEvents(new InteractEvent(), this);
+        pm.registerEvents(new GeneralListeners(), this);
+        pm.registerEvents(new CompassGUIListener(), this);
     }
     public void registerCommands() {
         getCommand("fly").setExecutor(new FlyCommand());
@@ -66,6 +71,9 @@ public final class IceLobby extends JavaPlugin {
         getCommand("tpall").setExecutor(new TpAllCommand());
         getCommand("globalmute").setExecutor(new GlobalMuteCommand());
         getCommand("help").setExecutor(new HelpCommand());
+        getCommand("navigator").setExecutor(new CompassGUI());
+        getCommand("warp").setExecutor(new WarpCommand());
+        getCommand("nothing").setExecutor(new NothingCommand());
     }
 
     public static IceLobby instance;
@@ -79,4 +87,6 @@ public final class IceLobby extends JavaPlugin {
 //TODO: CHECK - help command
 //TODO: CHECK - change unknown command message
 //TODO: interact with lobby items
+//TODO: tablist
+//TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
 

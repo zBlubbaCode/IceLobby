@@ -23,3 +23,9 @@ commands:
     description: mutes every player without permission
   help:
     description: helps you to get a better overview
+  navigator:
+    description: opens the navigator gui
+  warp:
+    description: warp system for teleporting
+  nothing:
+    description: nothing

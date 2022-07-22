@@ -42,6 +42,24 @@ public class MessageCollection {
 
     //compass gui
     public static String getCompassGUITitle(Player p) {String compassTitle = itemConfig.getString("compass.gui.title"); compassTitle = compassTitle.replace('&', '§');compassTitle = compassTitle.replace("{user}", p.getName());return compassTitle;}
+    public static String getCompassItemType(int number) {
+        String type = itemConfig.getString("compass.items." + number + ".type");
+        return type;
+    }
+    public static String getCompassItemName(int number) {
+        String name = itemConfig.getString("compass.items." + number + ".name");
+        name = replaceWithVariables(name);
+        return name;
+    }
+    public static String getCompassItemLore(int number) {
+        String lore = itemConfig.getString("compass.items." + number + ".lore");
+        lore = replaceWithVariables(lore);
+        return lore;
+    }
+    public static String getCompassItemCommand(int number) {
+        String command = itemConfig.getString("compass.items." + number + ".command");
+        return command;
+    }
 
     //commands
 
@@ -53,6 +71,7 @@ public class MessageCollection {
     public static String getWarpCreated(String warpName) {String warpCreated = config.getString("messages.commands.warpcommand.created"); warpCreated = replaceWithVariables(warpCreated);warpCreated = warpCreated.replace("{warpname}", warpName);return warpCreated;}
     public static String getWarpDeleted(String warpName) {String warpDeleted = config.getString("messages.commands.warpcommand.deleted"); warpDeleted = replaceWithVariables(warpDeleted);warpDeleted = warpDeleted.replace("{warpname}", warpName);return warpDeleted;}
     public static String getWarpExists(String warpName) {String warpExists = config.getString("messages.commands.warpcommand.exists"); warpExists = replaceWithVariables(warpExists);warpExists = warpExists.replace("{warpname}", warpName);return warpExists;}
+    public static String getWarpNotExist(String warpName) {String warpNotExist = config.getString("messages.commands.warpcommand.notexists");warpNotExist = replaceWithVariables(warpNotExist);return warpNotExist;}
     //fly
     public static String getFlyOffMsg() {String flyOff = config.getString("messages.commands.fly.off");flyOff = replaceWithVariables(flyOff);return flyOff;}
     public static String getFlyOnMsg() {String flyOn = config.getString("messages.commands.fly.on");flyOn = replaceWithVariables(flyOn);return flyOn;}

@@ -82,8 +82,8 @@ public final class IceLobby extends JavaPlugin {
 }
 //TODO: CHECK - MessageCollection add more variabled - {prefix}, {maxPlayers}, {onlineplayers}
 //TODO: CHECK - rewrite commands to implement MessageCollection
-//TODO: add Compass
-//TODO: add own Player head to hotbar
+//TODO: CHECK - add Compass
+//TODO: CHECK - add own Player head to hotbar
 //TODO: CHECK - help command
 //TODO: CHECK - change unknown command message
 //TODO: interact with lobby items

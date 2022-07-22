@@ -166,21 +166,21 @@ public class ConfigBuilder {
             itemConfig.addDefault("items.hotbar.4.name", "&c");
             itemConfig.addDefault("items.hotbar.4.lore", "");
             itemConfig.addDefault("items.hotbar.4.type", "BLACK_STAINED_GLASS_PANE");
-            itemConfig.addDefault("items.hotbar.4.command", "");
+            itemConfig.addDefault("items.hotbar.4.command", "nothing");
 
             itemConfig.addDefault("items.hotbar.5.enabled", true);
             itemConfig.addDefault("items.hotbar.5.slot", 4);
             itemConfig.addDefault("items.hotbar.5.name", "&aCompass");
             itemConfig.addDefault("items.hotbar.5.lore", "&7Click to open the compass menu!");
             itemConfig.addDefault("items.hotbar.5.type", "COMPASS");
-            itemConfig.addDefault("items.hotbar.5.command", "compass");
+            itemConfig.addDefault("items.hotbar.5.command", "navigator");
 
             itemConfig.addDefault("items.hotbar.6.enabled", true);
             itemConfig.addDefault("items.hotbar.6.slot", 5);
             itemConfig.addDefault("items.hotbar.6.name", "&c");
             itemConfig.addDefault("items.hotbar.6.lore", "");
             itemConfig.addDefault("items.hotbar.6.type", "BLACK_STAINED_GLASS_PANE");
-            itemConfig.addDefault("items.hotbar.6.command", "");
+            itemConfig.addDefault("items.hotbar.6.command", "nothing");
 
             itemConfig.addDefault("items.hotbar.7.enabled", true);
             itemConfig.addDefault("items.hotbar.7.slot", 6);

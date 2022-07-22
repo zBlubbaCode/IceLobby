@@ -15,11 +15,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
 import java.io.File;
+import java.util.Objects;
 
 public class InteractEvent implements Listener {
 
     public static File configFile = new File("plugins/IceLobby", "config.yml");
     static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+    public static File itemFile = new File("plugins/IceLobby", "items.yml");
+    static FileConfiguration itemConfig = YamlConfiguration.loadConfiguration(itemFile);
 
     @EventHandler
     public void onEntityInteract(PlayerInteractEvent event) {
@@ -43,6 +46,17 @@ public class InteractEvent implements Listener {
                     p.setFallDistance(-999F);
                 }
             }, 3);
+        }
+
+        int slot = p.getInventory().getHeldItemSlot() + 1;
+        if(itemConfig.get("items.hotbar." + slot) != null) {
+            if(!itemConfig.getBoolean("items.hotbar." + slot + ".enabled")) return;
+            if(Objects.equals(itemConfig.getString("items.hotbar." + slot + ".type"), p.getInventory().getItemInMainHand().getType().toString())) {
+                if(itemConfig.getInt("items.hotbar." + slot + ".slot") == p.getInventory().getHeldItemSlot()) {
+                    p.performCommand(itemConfig.getString("items.hotbar." + slot + ".command"));
+                    event.setCancelled(true);
+                }
+            }
         }
     }
 }

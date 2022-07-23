@@ -1,9 +1,12 @@
 package de.zblubba.icelobby.listeners;
 
+import de.zblubba.icelobby.commands.BuildCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
@@ -29,6 +32,14 @@ public class GeneralListeners implements Listener {
             if(!event.getWhoClicked().hasPermission("icelobby.items.move")) {
                 event.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        Player p = event.getPlayer();
+        if(!BuildCommand.getBuildPlayers().contains(p)) {
+            event.setCancelled(true);
         }
     }
 }

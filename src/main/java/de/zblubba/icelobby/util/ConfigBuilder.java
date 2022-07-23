@@ -33,6 +33,7 @@ public class ConfigBuilder {
                       "##########################################################"
             );
 
+            config.addDefault("defaults.playergamemode", "ADVENTURE");
             config.addDefault("messages.util.prefix", "&bIce&9Lobby &8| &7");
             config.addDefault("messages.util.nopermission", "&cYou don't have enough permission to perform this command!");
             config.addDefault("messages.util.mustbeaplayertoperform", "&cYou must be a player to perform this command!");
@@ -53,6 +54,9 @@ public class ConfigBuilder {
             config.addDefault("messages.commands.warpcommand.deleted", "&7You deleted the warp &c{warpname}");
             config.addDefault("messages.commands.warpcommand.exists", "&cThis warp already exists");
             config.addDefault("messages.commands.warpcommand.notexists", "&cThis warp does not exist!");
+            config.addDefault("messages.commands.build.on", "&7Build mode &aactivated&7!");
+            config.addDefault("messages.commands.build.off", "&7Build mode &cdeactivated&7!");
+            config.addDefault("messages.commands.build.addhotbaritemsonoff", true);
 
 
             ArrayList<String> helpList = new ArrayList<>();

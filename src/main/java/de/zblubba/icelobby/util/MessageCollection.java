@@ -75,7 +75,9 @@ public class MessageCollection {
     //fly
     public static String getFlyOffMsg() {String flyOff = config.getString("messages.commands.fly.off");flyOff = replaceWithVariables(flyOff);return flyOff;}
     public static String getFlyOnMsg() {String flyOn = config.getString("messages.commands.fly.on");flyOn = replaceWithVariables(flyOn);return flyOn;}
-
+    //build
+    public static String getBuildModeOn() {String buildOn = config.getString("messages.commands.build.on");buildOn = replaceWithVariables(buildOn);return buildOn;}
+    public static String getBuildModeOff() {String buildOff = config.getString("messages.commands.build.off");buildOff = replaceWithVariables(buildOff);return buildOff;}
 
 
 

@@ -35,3 +35,7 @@ commands:
     description: warp system for teleporting
   nothing:
     description: nothing
+  build:
+    description: allows a user to build in the lobby
+    aliases:
+      - b

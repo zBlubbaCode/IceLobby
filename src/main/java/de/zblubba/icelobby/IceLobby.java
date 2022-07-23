@@ -74,6 +74,7 @@ public final class IceLobby extends JavaPlugin {
         getCommand("navigator").setExecutor(new CompassGUI());
         getCommand("warp").setExecutor(new WarpCommand());
         getCommand("nothing").setExecutor(new NothingCommand());
+        getCommand("build").setExecutor(new BuildCommand());
     }
 
     public static IceLobby instance;
@@ -91,5 +92,5 @@ public final class IceLobby extends JavaPlugin {
 //TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
 //TODO: hotbarItems can be moved + Offhand
 //TODO: Placeholder API
-//TODO: Build mode
+//TODO: CHECK - Build mode
 

@@ -35,6 +35,9 @@ public class JoinListener implements Listener {
 
         if(config.getBoolean("messages.events.join.enabled")) {event.setJoinMessage(joinMessage);}
 
+        GameMode defaultGameMode = GameMode.valueOf(config.getString("defaults.playergamemode"));
+        p.setGameMode(defaultGameMode);
+
         p.sendTitle(title, subtitle);
         if(config.getBoolean("scoreboard.enabled")) {Scoreboard.setScoreboard(p);}
 

@@ -1,10 +1,7 @@
 package de.zblubba.icelobby.listeners;
 
 import de.zblubba.icelobby.IceLobby;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -50,11 +47,33 @@ public class InteractEvent implements Listener {
 
         int slot = p.getInventory().getHeldItemSlot() + 1;
         if(itemConfig.get("items.hotbar." + slot) != null) {
+            if(p.getInventory().getItemInMainHand() == null) return;
             if(!itemConfig.getBoolean("items.hotbar." + slot + ".enabled")) return;
             if(itemConfig.getInt("items.hotbar." + slot + ".slot") == p.getInventory().getHeldItemSlot()) {
-                p.performCommand(itemConfig.getString("items.hotbar." + slot + ".command"));
-                event.setCancelled(true);
+                String itemName = itemConfig.getString("items.hotbar." + slot + ".name");
+                String[] itemNameSplitted = itemName.split("&");
+                for(int i = 0; i < itemNameSplitted.length; i++) {
+                    itemNameSplitted[i] = removeFirstChar(itemNameSplitted[i]);
+                }
+                String itemNameTogether = "";
+                for(int i = 0; i < itemNameSplitted.length; i++) {
+                    itemNameTogether = itemNameTogether + itemNameSplitted[i];
+                }
+                String itemNameInHand;
+                if(p.getInventory().getItemInMainHand().hasItemMeta()) {
+                    itemNameInHand = ChatColor.stripColor(p.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
+                } else return;
+
+                if(itemNameTogether.equals(itemNameInHand)) {
+                    p.performCommand(itemConfig.getString("items.hotbar." + slot + ".command"));
+                    event.setCancelled(true);
+                }
             }
         }
+    }
+
+    public String removeFirstChar(String input) {
+        if(input == null | input.length() == 0) return input;
+        return input.substring(1);
     }
 }

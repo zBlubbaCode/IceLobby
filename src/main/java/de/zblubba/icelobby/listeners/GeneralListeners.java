@@ -1,6 +1,7 @@
 package de.zblubba.icelobby.listeners;
 
 import de.zblubba.icelobby.commands.BuildCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -8,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
@@ -105,6 +107,17 @@ public class GeneralListeners implements Listener {
         if(event.getEntity() instanceof Player p) {
             if(config.getBoolean("defaults.stoppickupitems") && !BuildCommand.getBuildPlayers().contains(p)) {
                 event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onSignChange(SignChangeEvent event) {
+        Player p = event.getPlayer();
+        String[] lines = event.getLines();
+        if(p.hasPermission("icelobby.admin")) {
+            for(int i = 0; i <= 3; i++) {
+                event.setLine(i, ChatColor.translateAlternateColorCodes('&', lines[i]));
             }
         }
     }

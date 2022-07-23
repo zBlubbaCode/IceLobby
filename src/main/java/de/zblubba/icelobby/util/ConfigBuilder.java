@@ -48,24 +48,24 @@ public class ConfigBuilder {
             config.addDefault("messages.util.actionbar.enabled", true);
             config.addDefault("messages.util.actionbar.message", "&bIce&9Lobby &8- &aNEW Lobby Plugin!");
             config.addDefault("messages.util.commanddoesnotexist", "§cThis command does not exist!");
-            config.addDefault("messages.util.visibility.onlyvip", "&7You can only see &dVIP's &7now!");
-            config.addDefault("messages.util.visibility.nobody", "&7You can only see &cno one &7now!");
-            config.addDefault("messages.util.visibility.all", "&7You can see &aeveryone &7now!");
+            config.addDefault("messages.util.visibility.onlyvip", "{prefix} &7You can only see &dVIP's &7now!");
+            config.addDefault("messages.util.visibility.nobody", "{prefix} &7You can only see &cno one &7now!");
+            config.addDefault("messages.util.visibility.all", "{prefix} &7You can see &aeveryone &7now!");
 
-            config.addDefault("messages.commands.fly.off", "&7Fly &cdisabled&7!");
-            config.addDefault("messages.commands.fly.on", "&7Fly &aenabled&7!");
-            config.addDefault("messages.commands.tpall.ownmessage", "&7You teleportet &cevery &7player to you!");
+            config.addDefault("messages.commands.fly.off", "{prefix} &7Fly &cdisabled&7!");
+            config.addDefault("messages.commands.fly.on", "{prefix} &7Fly &aenabled&7!");
+            config.addDefault("messages.commands.tpall.ownmessage", "{prefix} &7You teleportet &cevery &7player to you!");
             config.addDefault("messages.commands.tpall.players.enabled", true);
-            config.addDefault("messages.commands.tpall.players.message", "&7Your were teleported to &c{user}");
-            config.addDefault("messages.commands.globalmute.broadcastmessage", "&7The Chat is now &cclosed&7!");
-            config.addDefault("messages.commands.globalmute.responseifclosed", "&cThe chat is closed!");
-            config.addDefault("messages.commands.warpcommand.teleported", "&7You have been teleported to the warp &c{warpname}");
-            config.addDefault("messages.commands.warpcommand.created", "&7You created the warp &c{warpname}");
-            config.addDefault("messages.commands.warpcommand.deleted", "&7You deleted the warp &c{warpname}");
-            config.addDefault("messages.commands.warpcommand.exists", "&cThis warp already exists");
-            config.addDefault("messages.commands.warpcommand.notexists", "&cThis warp does not exist!");
-            config.addDefault("messages.commands.build.on", "&7Build mode &aactivated&7!");
-            config.addDefault("messages.commands.build.off", "&7Build mode &cdeactivated&7!");
+            config.addDefault("messages.commands.tpall.players.message", "{prefix} &7Your were teleported to &c{user}");
+            config.addDefault("messages.commands.globalmute.broadcastmessage", "{prefix} &7The Chat is now &cclosed&7!");
+            config.addDefault("messages.commands.globalmute.responseifclosed", "{prefix} &cThe chat is closed!");
+            config.addDefault("messages.commands.warpcommand.teleported", "{prefix} &7You have been teleported to the warp &c{warpname}");
+            config.addDefault("messages.commands.warpcommand.created", "{prefix} &7You created the warp &c{warpname}");
+            config.addDefault("messages.commands.warpcommand.deleted", "{prefix} &7You deleted the warp &c{warpname}");
+            config.addDefault("messages.commands.warpcommand.exists", "{prefix} &cThis warp already exists");
+            config.addDefault("messages.commands.warpcommand.notexists", "{prefix} &cThis warp does not exist!");
+            config.addDefault("messages.commands.build.on", "{prefix} &7Build mode &aactivated&7!");
+            config.addDefault("messages.commands.build.off", "{prefix} &7Build mode &cdeactivated&7!");
             config.addDefault("messages.commands.build.addhotbaritemsonoff", true);
 
 
@@ -126,9 +126,9 @@ public class ConfigBuilder {
         if(spawnConfig.get("settings") == null) {
             spawnConfig.addDefault("settings.enabled", true);
             spawnConfig.addDefault("settings.teleportonjoin", true);
-            spawnConfig.addDefault("settings.teleportmessage", "&7Your were teleported to the &aSpawn&7!");
-            spawnConfig.addDefault("settings.spawnnotset", "&cThere is no spawn.");
-            spawnConfig.addDefault("settings.spawndisabled", "&cThe spawn is disabled!");
+            spawnConfig.addDefault("settings.teleportmessage", "{prefix} &7Your were teleported to the &aSpawn&7!");
+            spawnConfig.addDefault("settings.spawnnotset", "{prefix} &cThere is no spawn.");
+            spawnConfig.addDefault("settings.spawndisabled", "{prefix} &cThe spawn is disabled!");
 
             spawnConfig.options().copyDefaults(true);
             try {spawnConfig.save(spawnFile);} catch (IOException e) {throw new RuntimeException(e);}

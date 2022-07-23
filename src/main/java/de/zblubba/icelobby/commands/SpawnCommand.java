@@ -24,7 +24,7 @@ public class SpawnCommand implements CommandExecutor {
 
         if(sender instanceof Player p) {
             if(args.length == 0) {
-                if(spawnConfig.getBoolean("enabled")) {
+                if(spawnConfig.getBoolean("settings.enabled")) {
                     if(spawnConfig.getString("spawn.world") != null) {
 
                         World world = Bukkit.getWorld(spawnConfig.getString("spawn.world"));

@@ -3,6 +3,7 @@ package de.zblubba.icelobby.listeners;
 import de.zblubba.icelobby.commands.GlobalMuteCommand;
 import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +14,8 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
+        event.setMessage(event.getPlayer().hasPermission("icelobby.chat.colored") ? ChatColor.translateAlternateColorCodes('&', event.getMessage()) : event.getMessage());
+
         if(GlobalMuteCommand.isMuteStateOn()) {
             if(event.getPlayer().hasPermission("icelobby.chat.bypass")) {
                 event.setCancelled(true);

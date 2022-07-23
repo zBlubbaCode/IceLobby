@@ -14,6 +14,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 import java.io.File;
@@ -36,8 +37,17 @@ public class GeneralListeners implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if(event.getInventory() == event.getWhoClicked().getInventory()) {
+        if(!itemConfig.getBoolean("canbemoved")) {
             if(!BuildCommand.getBuildPlayers().contains(event.getWhoClicked())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event) {
+        if(!itemConfig.getBoolean("canbemoved")) {
+            if(!BuildCommand.getBuildPlayers().contains(event.getPlayer())) {
                 event.setCancelled(true);
             }
         }

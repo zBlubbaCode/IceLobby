@@ -1,5 +1,5 @@
 name: IceLobby
-version: '${project.version}'
+version: 1.0-ALPHA
 main: de.zblubba.icelobby.IceLobby
 api-version: 1.19
 authors: [ zBlubba ]
@@ -39,3 +39,5 @@ commands:
     description: allows a user to build in the lobby
     aliases:
       - b
+  visibility:
+    description: changes the visibility of the players

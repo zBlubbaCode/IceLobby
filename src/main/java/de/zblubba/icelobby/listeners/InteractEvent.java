@@ -51,11 +51,9 @@ public class InteractEvent implements Listener {
         int slot = p.getInventory().getHeldItemSlot() + 1;
         if(itemConfig.get("items.hotbar." + slot) != null) {
             if(!itemConfig.getBoolean("items.hotbar." + slot + ".enabled")) return;
-            if(Objects.equals(itemConfig.getString("items.hotbar." + slot + ".type"), p.getInventory().getItemInMainHand().getType().toString())) {
-                if(itemConfig.getInt("items.hotbar." + slot + ".slot") == p.getInventory().getHeldItemSlot()) {
-                    p.performCommand(itemConfig.getString("items.hotbar." + slot + ".command"));
-                    event.setCancelled(true);
-                }
+            if(itemConfig.getInt("items.hotbar." + slot + ".slot") == p.getInventory().getHeldItemSlot()) {
+                p.performCommand(itemConfig.getString("items.hotbar." + slot + ".command"));
+                event.setCancelled(true);
             }
         }
     }

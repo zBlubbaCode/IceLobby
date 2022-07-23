@@ -40,6 +40,7 @@ public class ConfigBuilder {
             config.addDefault("defaults.noexplosions", true);
             config.addDefault("defaults.stopdespawningleavs", true);
             config.addDefault("defaults.stoppickupitems", true);
+            config.addDefault("defaults.healonjoin", true);
             config.addDefault("messages.util.prefix", "&bIce&9Lobby &8| &7");
             config.addDefault("messages.util.nopermission", "&cYou don't have enough permission to perform this command!");
             config.addDefault("messages.util.mustbeaplayertoperform", "&cYou must be a player to perform this command!");
@@ -47,6 +48,9 @@ public class ConfigBuilder {
             config.addDefault("messages.util.actionbar.enabled", true);
             config.addDefault("messages.util.actionbar.message", "&bIce&9Lobby &8- &aNEW Lobby Plugin!");
             config.addDefault("messages.util.commanddoesnotexist", "§cThis command does not exist!");
+            config.addDefault("messages.util.visibility.onlyvip", "&7You can only see &dVIP's &7now!");
+            config.addDefault("messages.util.visibility.nobody", "&7You can only see &cno one &7now!");
+            config.addDefault("messages.util.visibility.all", "&7You can see &aeveryone &7now!");
 
             config.addDefault("messages.commands.fly.off", "&7Fly &cdisabled&7!");
             config.addDefault("messages.commands.fly.on", "&7Fly &aenabled&7!");
@@ -119,12 +123,12 @@ public class ConfigBuilder {
             Bukkit.getConsoleSender().sendMessage("§aConfig was successfully created!");
         }
 
-        if(spawnConfig.get("spawn") == null) {
-            spawnConfig.addDefault("enabled", true);
-            spawnConfig.addDefault("teleportonjoin", true);
-            spawnConfig.addDefault("teleportmessage", "&7Your were teleported to the &aSpawn&7!");
-            spawnConfig.addDefault("spawnnotset", "&cThere is no spawn.");
-            spawnConfig.addDefault("spawndisabled", "&cThe spawn is disabled!");
+        if(spawnConfig.get("settings") == null) {
+            spawnConfig.addDefault("settings.enabled", true);
+            spawnConfig.addDefault("settings.teleportonjoin", true);
+            spawnConfig.addDefault("settings.teleportmessage", "&7Your were teleported to the &aSpawn&7!");
+            spawnConfig.addDefault("settings.spawnnotset", "&cThere is no spawn.");
+            spawnConfig.addDefault("settings.spawndisabled", "&cThe spawn is disabled!");
 
             spawnConfig.options().copyDefaults(true);
             try {spawnConfig.save(spawnFile);} catch (IOException e) {throw new RuntimeException(e);}

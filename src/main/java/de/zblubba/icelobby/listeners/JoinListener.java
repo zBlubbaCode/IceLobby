@@ -1,6 +1,7 @@
 package de.zblubba.icelobby.listeners;
 
 import de.zblubba.icelobby.IceLobby;
+import de.zblubba.icelobby.commands.VisibilityCommand;
 import de.zblubba.icelobby.util.Scoreboard;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -13,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class JoinListener implements Listener {
 
@@ -22,9 +24,15 @@ public class JoinListener implements Listener {
     public static File spawnFile = new File("plugins/IceLobby", "spawn.yml");
     static FileConfiguration spawnConfig = YamlConfiguration.loadConfiguration(spawnFile);
 
+    public static ArrayList<String> allPlayerList = new ArrayList<>();
+    public static ArrayList<String> vipPlayerList = new ArrayList<>();
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
+
+        allPlayerList.add(p.getName());
+        if(p.hasPermission("icelobby.vip")) vipPlayerList.add(p.getName());
 
         String joinMessage = config.getString("messages.events.join.message"); joinMessage = ChatColor.translateAlternateColorCodes('&', joinMessage);
         joinMessage = joinMessage.replace("{user}", p.getName());
@@ -40,8 +48,9 @@ public class JoinListener implements Listener {
 
         p.sendTitle(title, subtitle);
         if(config.getBoolean("scoreboard.enabled")) {Scoreboard.setScoreboard(p);}
+        if(config.getBoolean("defaults.healonjoin")) p.setHealth(20);p.setFoodLevel(20);
 
-        if(spawnConfig.getBoolean("teleportonjoin") && spawnConfig.getString("spawn.world") != null && spawnConfig.getBoolean("enabled")) {
+        if(spawnConfig.getBoolean("settings.teleportonjoin") && spawnConfig.getString("spawn.world") != null && spawnConfig.getBoolean("settings.enabled")) {
             World world = Bukkit.getWorld(spawnConfig.getString("spawn.world"));
             double x = spawnConfig.getDouble("spawn.x");
             double y = spawnConfig.getDouble("spawn.y");
@@ -66,6 +75,20 @@ public class JoinListener implements Listener {
             Bukkit.getScheduler().runTaskLater(IceLobby.getPlugin(IceLobby.class), () -> {
                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 255, 1);
             }, 40);
+        }
+
+        for(int i = 0; i < VisibilityCommand.getPlayerHider().size(); i++) {
+            Player player = (Player) VisibilityCommand.playerHider.keySet().toArray()[0];
+            String type = VisibilityCommand.getPlayerHider().get(player);
+
+            switch(type) {
+                case "vip" -> {
+                    if(!p.hasPermission("icelobby.vip")) {
+                        player.hidePlayer(IceLobby.getPlugin(IceLobby.class), p);
+                    }
+                }
+                case "none" -> player.hidePlayer(IceLobby.getPlugin(IceLobby.class), p);
+            }
         }
     }
 }

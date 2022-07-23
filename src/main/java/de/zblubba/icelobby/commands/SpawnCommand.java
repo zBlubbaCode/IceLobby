@@ -1,5 +1,6 @@
 package de.zblubba.icelobby.commands;
 
+import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -20,9 +21,6 @@ public class SpawnCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String spawnNotSet = spawnConfig.getString("spawnnotset"); spawnNotSet =  spawnNotSet.replace("&", "§");
-        String spawnDisabled = spawnConfig.getString("spawndisabled"); spawnDisabled = spawnDisabled.replace("&", "§");
-        String teleportMessage = spawnConfig.getString("teleportmessage"); teleportMessage = teleportMessage.replace('&', '§');
 
         if(sender instanceof Player p) {
             if(args.length == 0) {
@@ -36,10 +34,10 @@ public class SpawnCommand implements CommandExecutor {
                         float yaw = (float) spawnConfig.getDouble("spawn.yaw");
                         float pitch = (float) spawnConfig.getDouble("spawn.pitch");
                         p.teleport(new Location(world, x, y, z, yaw, pitch));
-                        p.sendMessage(teleportMessage);
+                        p.sendMessage(MessageCollection.teleportMessage());
 
-                    } else p.sendMessage(spawnNotSet);
-                } else p.sendMessage(spawnDisabled);
+                    } else p.sendMessage(MessageCollection.spawnNotSet());
+                } else p.sendMessage(MessageCollection.spawnDisabled());
             } else if(args.length == 1) {
                 if(args[0].equalsIgnoreCase("set")) {
                     if(sender.hasPermission("icelobby.commands.setspawn")) {

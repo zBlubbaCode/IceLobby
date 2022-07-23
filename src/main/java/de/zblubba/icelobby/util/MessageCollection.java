@@ -21,6 +21,9 @@ public class MessageCollection {
     public static String getNoPerms() {String noPerms = config.getString("messages.util.nopermission"); noPerms = replaceWithVariables(noPerms);return noPerms;}
     public static String mustbePlayer() {String mustbePlayer = config.getString("messages.util.mustbeaplayertoperform"); mustbePlayer = replaceWithVariables(mustbePlayer);return mustbePlayer;}
     public static String commandNotExist() {String notExist = config.getString("messages.util.commanddoesnotexist");notExist = replaceWithVariables(notExist);return notExist;}
+    public static String visibilityOnlyVIP() {String onlyVIP = config.getString("messages.util.visibility.onlyvip"); onlyVIP = replaceWithVariables(onlyVIP); return onlyVIP;}
+    public static String visibilityNobody() {String nobody = config.getString("messages.util.visibility.nobody"); nobody = replaceWithVariables(nobody); return nobody;}
+    public static String visibilityAll() {String all = config.getString("messages.util.visibility.all"); all = replaceWithVariables(all); return all;}
 
     //add items on Join
     public static String getHotbarItemName(int number) {
@@ -39,6 +42,11 @@ public class MessageCollection {
         return itemType;
     }
 
+    //spawn
+
+    public static String spawnNotSet() {String noSpawn = spawnConfig.getString("settings.spawnnotset");noSpawn = replaceWithVariables(noSpawn);return noSpawn;}
+    public static String spawnDisabled() {String spawnDisabled = spawnConfig.getString("settings.spawndisabled"); spawnDisabled = replaceWithVariables(spawnDisabled); return spawnDisabled;}
+    public static String teleportMessage() {String tpMsg = spawnConfig.getString("settings.teleportmessage"); tpMsg = replaceWithVariables(tpMsg); return tpMsg;}
 
     //compass gui
     public static String getCompassGUITitle(Player p) {String compassTitle = itemConfig.getString("compass.gui.title"); compassTitle = compassTitle.replace('&', '§');compassTitle = compassTitle.replace("{user}", p.getName());return compassTitle;}

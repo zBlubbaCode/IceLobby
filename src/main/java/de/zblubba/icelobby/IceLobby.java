@@ -29,12 +29,12 @@ public final class IceLobby extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage("§8--------===========--------");
         Bukkit.getConsoleSender().sendMessage("");
-        Bukkit.getConsoleSender().sendMessage("§bProduct§8: §bIce§9Lobby");
-        Bukkit.getConsoleSender().sendMessage("§bStatus: §8: §aActive");
-        Bukkit.getConsoleSender().sendMessage("§bDeveloper§8: §bzBlubba");
-        Bukkit.getConsoleSender().sendMessage("§bVersion§8: §b" + IceLobby.getInstance().getDescription().getVersion());
-        Bukkit.getConsoleSender().sendMessage("§bOS§8: §b" + System.getProperty("os.name"));
-        Bukkit.getConsoleSender().sendMessage("§bJava-Version§8: §b" + System.getProperty("java.version"));
+        Bukkit.getConsoleSender().sendMessage("§7Product§8: §bIce§9Lobby");
+        Bukkit.getConsoleSender().sendMessage("§7Status: §8: §aActive");
+        Bukkit.getConsoleSender().sendMessage("§7Developer§8: §bzBlubba");
+        Bukkit.getConsoleSender().sendMessage("§7Version§8: §b" + IceLobby.getInstance().getDescription().getVersion());
+        Bukkit.getConsoleSender().sendMessage("§7OS§8: §b" + System.getProperty("os.name"));
+        Bukkit.getConsoleSender().sendMessage("§7Java-Version§8: §b" + System.getProperty("java.version"));
         Bukkit.getConsoleSender().sendMessage("");
         Bukkit.getConsoleSender().sendMessage("§8--------===========--------");
     }
@@ -43,12 +43,12 @@ public final class IceLobby extends JavaPlugin {
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage("§8--------===========--------");
         Bukkit.getConsoleSender().sendMessage("");
-        Bukkit.getConsoleSender().sendMessage("§bProduct§8: §bIce§9Lobby");
-        Bukkit.getConsoleSender().sendMessage("§bStatus: §8: §cDeactivated");
-        Bukkit.getConsoleSender().sendMessage("§bDeveloper§8: §bzBlubba");
-        Bukkit.getConsoleSender().sendMessage("§bVersion§8: §b" + IceLobby.getInstance().getDescription().getVersion());
-        Bukkit.getConsoleSender().sendMessage("§bOS§8: §b" + System.getProperty("os.name"));
-        Bukkit.getConsoleSender().sendMessage("§bJava-Version§8: §b" + System.getProperty("java.version"));
+        Bukkit.getConsoleSender().sendMessage("§7Product§8: §bIce§9Lobby");
+        Bukkit.getConsoleSender().sendMessage("§7Status: §8: §cDeactivated");
+        Bukkit.getConsoleSender().sendMessage("§7Developer§8: §bzBlubba");
+        Bukkit.getConsoleSender().sendMessage("§7Version§8: §b" + IceLobby.getInstance().getDescription().getVersion());
+        Bukkit.getConsoleSender().sendMessage("§7OS§8: §b" + System.getProperty("os.name"));
+        Bukkit.getConsoleSender().sendMessage("§7Java-Version§8: §b" + System.getProperty("java.version"));
         Bukkit.getConsoleSender().sendMessage("");
         Bukkit.getConsoleSender().sendMessage("§8--------===========--------");
     }
@@ -75,6 +75,7 @@ public final class IceLobby extends JavaPlugin {
         getCommand("warp").setExecutor(new WarpCommand());
         getCommand("nothing").setExecutor(new NothingCommand());
         getCommand("build").setExecutor(new BuildCommand());
+        getCommand("visibility").setExecutor(new VisibilityCommand());
     }
 
     public static IceLobby instance;
@@ -88,11 +89,12 @@ public final class IceLobby extends JavaPlugin {
 //TODO: CHECK - help command
 //TODO: CHECK - change unknown command message
 //TODO: CHECK - interact with lobby items
-//TODO: only 1 world with name or all
+//TODO: CHECK - Build mode
+//TODO: only 1 world with name or all worlds option
 //TODO: updater
 //TODO: tablist
 //TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
 //TODO: hotbarItems can be moved + Offhand
 //TODO: Placeholder API
-//TODO: CHECK - Build mode
+
 

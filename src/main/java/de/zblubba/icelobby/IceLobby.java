@@ -88,6 +88,8 @@ public final class IceLobby extends JavaPlugin {
 //TODO: CHECK - help command
 //TODO: CHECK - change unknown command message
 //TODO: CHECK - interact with lobby items
+//TODO: only 1 world with name or all
+//TODO: updater
 //TODO: tablist
 //TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
 //TODO: hotbarItems can be moved + Offhand

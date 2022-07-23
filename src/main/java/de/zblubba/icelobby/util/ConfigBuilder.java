@@ -34,6 +34,12 @@ public class ConfigBuilder {
             );
 
             config.addDefault("defaults.playergamemode", "ADVENTURE");
+            config.addDefault("defaults.unlimitedfood", true);
+            config.addDefault("defaults.nodamage", true);
+            config.addDefault("defaults.lockweather", true);
+            config.addDefault("defaults.noexplosions", true);
+            config.addDefault("defaults.stopdespawningleavs", true);
+            config.addDefault("defaults.stoppickupitems", true);
             config.addDefault("messages.util.prefix", "&bIce&9Lobby &8| &7");
             config.addDefault("messages.util.nopermission", "&cYou don't have enough permission to perform this command!");
             config.addDefault("messages.util.mustbeaplayertoperform", "&cYou must be a player to perform this command!");
@@ -63,7 +69,7 @@ public class ConfigBuilder {
             helpList.add("&8======================================================");
             helpList.add("             &b&lIce&9&lLobby");
             helpList.add("&7");
-            helpList.add("&7You can fina a full guide of this plugin");
+            helpList.add("&7You can find a full guide of this plugin");
             helpList.add("&7on https://zblubba.de or the spigot side!");
             helpList.add("&7");
             helpList.add("&7By the way you can modify this message in the config :D");

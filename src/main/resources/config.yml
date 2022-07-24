@@ -1,0 +1,122 @@
+# #########################################################
+#            - IceLobby by zBlubba -                     #
+# #########################################################
+#  Supported variables:
+#  {prefix} - prefix; {user} - username;
+#  {maxplayers} - slots of server; {onlineplayers} - online players;
+#  more might come in newer versions.
+#  not every variable works in every case, just try it!
+#  for the scoreboard, you must use other color-codes for the spacers
+#  You can find a full guide on https://zblubba.de or on the spigot page :D
+# ##########################################################
+
+defaults:
+  lobbyWorlds:
+    - world
+  #possible inputs: SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR
+  player_gamemode: ADVENTURE
+  unlimited_food: true
+  no_damage: true
+  # supported types: CLEAR, RAIN, THUNDER
+  default_weather: CLEAR
+  lock_weather: true
+  no_explosions: true
+  #in vanilla, leaves without a stam nearby despawn
+  stop_despawning_leaves: true
+  stop_pickup_items: true
+  heal_on_join: true
+  world_change:
+    change_gamemode: true
+    gamemode: SURVIVAL
+    clear_hotbar: true
+  build_command_only_in_build_world: true
+messages:
+  util:
+    prefix: '&bIce&9Lobby &8| &7'
+    nopermission: '&cYou don''t have enough permission to perform this command!'
+    # example when the console tries to perform a command
+    must_be_a_player_to_perform: '&cYou must be a player to perform this command!'
+    motd:
+      firstLine: '&bIce&9Lobby &8- &cMinigames Network &8- &7[&a1.8&7-&a1.19&7]'
+      secondLine: '                 &a&lNEW Lobby Plugin!'
+    actionbar:
+      enabled: true
+      message: '&bIce&9Lobby &8- &aNEW Lobby Plugin!'
+    # works not everywhere, you can change the message in the spigot.yml, as well
+    command_does_not_exist: '§cThis command does not exist!'
+    visibility:
+      onlyvip: '{prefix} &7You can only see &dVIP''s &7now!'
+      nobody: '{prefix} &7You can only see &cno one &7now!'
+      all: '{prefix} &7You can see &aeveryone &7now!'
+  commands:
+    fly:
+      'off': '{prefix} &7Fly &cdisabled&7!'
+      'on': '{prefix} &7Fly &aenabled&7!'
+    tpall:
+      own_message: '{prefix} &7You teleportet &cevery &7player to you!'
+      players:
+        enabled: true
+        message: '{prefix} &7Your were teleported to &c{user}'
+    globalmute:
+      broadcast_message: '{prefix} &7The Chat is now &cclosed&7!'
+      response_if_closed: '{prefix} &cThe chat is closed!'
+    warpcommand:
+      teleported: '{prefix} &7You have been teleported to the warp &c{warpname}'
+      created: '{prefix} &7You created the warp &c{warpname}'
+      deleted: '{prefix} &7You deleted the warp &c{warpname}'
+      exists: '{prefix} &cThis warp already exists'
+      not_exists: '{prefix} &cThis warp does not exist!'
+    build:
+      'on': '{prefix} &7Build mode &aactivated&7!'
+      'off': '{prefix} &7Build mode &cdeactivated&7!'
+    help:
+    - '&8======================================================'
+    - '             &b&lIce&9&lLobby'
+    - '&7'
+    - '&7You can find a full guide of this plugin'
+    - '&7on https://zblubba.de or the spigot side!'
+    - '&7'
+    - '&7By the way you can modify this message in the config :D'
+    - '&8======================================================'
+    -
+  events:
+    join:
+      enabled: true
+      message: '&7[&a+&7] {user}'
+      title: '&a&lWelcome {user}'
+      subtitle: '&7to &bYour&9Network!'
+      playsound: true
+    quit:
+      enabled: true
+      message: '&7[&c-&7] {user}'
+events:
+  launchpads:
+    # only oak and stone pressure plates work as launchpad
+    enabled: true
+    block: REDSTONE_BLOCK
+    # general boost
+    multiply: 1.5
+    # boost in the air
+    ymultiply: 1
+    effect: true
+    sound: true
+scoreboard:
+  enabled: true
+  title: '      &bIce&9Lobby'
+  # there is a maximum of 15 lines in the scoreboard
+  scores:
+  - '&b'
+  - '&3➥ &7Your Name'
+  - '  &8● &9{user}'
+  - '&a'
+  - '&3➥ &7Coded by'
+  - '  &8● &bzBlubba'
+  - '&c'
+  - '&3➥ &7visit my Website'
+  - '  &8● &9https://zBlubba.de'
+  - '&d'
+  - '&3➥ &7set your'
+  - '  &8● &btext here'
+  - '&e'
+  - '&f'
+  - '       &BYour&9Server'

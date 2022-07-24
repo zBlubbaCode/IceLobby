@@ -27,6 +27,10 @@ public class BuildCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player p) {
             if(p.hasPermission("icelobby.commands.build")) {
+                if(!config.getBoolean("defaults.build_command_only_in_build_world")) {
+                    sender.sendMessage("§cBuild Command is only available in the lobby-worlds!");
+                    return false;
+                }
 
                 if(!buildPlayers.contains(p)) {
                     buildPlayers.add(p);
@@ -39,7 +43,7 @@ public class BuildCommand implements CommandExecutor {
                 } else {
                     buildPlayers.remove(p);
 
-                    GameMode defaultGameMode = GameMode.valueOf(config.getString("defaults.playergamemode"));
+                    GameMode defaultGameMode = GameMode.valueOf(config.getString("defaults.player_gamemode"));
                     p.setGameMode(defaultGameMode);
                     p.getInventory().setContents(playersBuildInventory.get(p));
 

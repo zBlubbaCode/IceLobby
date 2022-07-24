@@ -1,5 +1,6 @@
 package de.zblubba.icelobby.commands;
 
+import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -20,19 +21,14 @@ public class TpAllCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player p) {
             if(p.hasPermission("icelobby.commands.teleportall")) {
-                String ownMessage = config.getString("messages.commands.tpall.ownmessage"); ownMessage = ownMessage.replace('&', '§');
-                ownMessage = ownMessage.replace("{user}", p.getName());
-                String playersMessage = config.getString("messages.commands.tpall.players.message"); playersMessage = playersMessage.replace('&', '§');
-                playersMessage = playersMessage.replace("{user}", p.getName());
-
                 Location loc = p.getLocation();
 
                 for(Player players : Bukkit.getOnlinePlayers()) {
                     players.teleport(loc);
-                    if(config.getBoolean("messages.commands.tpall.players.enabled")) players.sendMessage(playersMessage);
+                    if(config.getBoolean("messages.commands.tpall.players.enabled")) players.sendMessage(MessageCollection.tpAllPlayersMessage());
                 }
 
-                p.sendMessage(ownMessage);
+                p.sendMessage(MessageCollection.tpAllOwnMessage());
             }
         }
         return false;

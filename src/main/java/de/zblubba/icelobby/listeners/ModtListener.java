@@ -16,7 +16,9 @@ public class ModtListener implements Listener {
 
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
-        String motdMessage = config.getString("messages.util.motd"); motdMessage = ChatColor.translateAlternateColorCodes('&', motdMessage);
-        event.setMotd(motdMessage);
+        String motdMessageFirst = config.getString("messages.util.motd.firstLine"); motdMessageFirst = ChatColor.translateAlternateColorCodes('&', motdMessageFirst);
+        String motdMessageSecond = config.getString("messages.util.motd.secondLine"); motdMessageSecond = ChatColor.translateAlternateColorCodes('&', motdMessageSecond);
+
+        event.setMotd(motdMessageFirst + "\n" + motdMessageSecond);
     }
 }

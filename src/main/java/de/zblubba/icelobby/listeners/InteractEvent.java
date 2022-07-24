@@ -7,12 +7,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
 import java.io.File;
-import java.util.Objects;
 
 public class InteractEvent implements Listener {
 
@@ -24,6 +22,7 @@ public class InteractEvent implements Listener {
     @EventHandler
     public void onEntityInteract(PlayerInteractEvent event) {
         Player p = event.getPlayer();
+        if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
 
         if(config.getBoolean("events.launchpads.enabled")) {
             Bukkit.getScheduler().runTaskLater(IceLobby.getPlugin(IceLobby.class), () -> {

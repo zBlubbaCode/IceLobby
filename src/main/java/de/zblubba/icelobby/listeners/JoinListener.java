@@ -43,12 +43,12 @@ public class JoinListener implements Listener {
 
         if(config.getBoolean("messages.events.join.enabled")) {event.setJoinMessage(joinMessage);}
 
-        GameMode defaultGameMode = GameMode.valueOf(config.getString("defaults.playergamemode"));
+        GameMode defaultGameMode = GameMode.valueOf(config.getString("defaults.player_gamemode"));
         p.setGameMode(defaultGameMode);
 
         p.sendTitle(title, subtitle);
         if(config.getBoolean("scoreboard.enabled")) {Scoreboard.setScoreboard(p);}
-        if(config.getBoolean("defaults.healonjoin")) p.setHealth(20);p.setFoodLevel(20);
+        if(config.getBoolean("defaults.heal_on_join")) p.setHealth(20);p.setFoodLevel(20);
 
         if(spawnConfig.getBoolean("settings.teleportonjoin") && spawnConfig.getString("spawn.world") != null && spawnConfig.getBoolean("settings.enabled")) {
             World world = Bukkit.getWorld(spawnConfig.getString("spawn.world"));
@@ -66,7 +66,9 @@ public class JoinListener implements Listener {
 
             Bukkit.getScheduler().scheduleSyncRepeatingTask(IceLobby.getPlugin(IceLobby.class), () -> {
                 for(Player players : Bukkit.getOnlinePlayers()) {
-                    players.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(finalMessage));
+                    if(IceLobby.getLobbyWorlds().contains(event.getPlayer().getLocation().getWorld().getName())) {
+                        players.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(finalMessage));
+                    }
                 }
             }, 0, 40);
         }

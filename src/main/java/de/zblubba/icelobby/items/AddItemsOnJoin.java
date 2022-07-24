@@ -26,6 +26,10 @@ public class AddItemsOnJoin implements Listener {
         Player p = event.getPlayer();
         if(itemConfig.getBoolean("items.clearinvonjoin")) p.getInventory().clear();
 
+        addHotbarItems(p);
+    }
+
+    public static void addHotbarItems(Player p) {
         if(itemConfig.getBoolean("items.enabled") && itemConfig.getBoolean("items.addonjoin")) {
             for(int i = 1; i < 10; i++) {
                 if(!MessageCollection.getHotbarItemType(i).equals("OWN_HEAD")) {
@@ -44,6 +48,5 @@ public class AddItemsOnJoin implements Listener {
                 }
             }
         }
-
     }
 }

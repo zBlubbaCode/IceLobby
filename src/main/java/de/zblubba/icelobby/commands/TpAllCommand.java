@@ -14,8 +14,8 @@ import java.io.File;
 
 public class TpAllCommand implements CommandExecutor {
 
-    public static File configFile = new File("plugins/IceLobby", "config.yml");
-    static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+    public static File messagesFiles = new File("plugins/IceLobby", "config.yml");
+    static FileConfiguration configMsg = YamlConfiguration.loadConfiguration(messagesFiles);
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -25,7 +25,7 @@ public class TpAllCommand implements CommandExecutor {
 
                 for(Player players : Bukkit.getOnlinePlayers()) {
                     players.teleport(loc);
-                    if(config.getBoolean("messages.commands.tpall.players.enabled")) players.sendMessage(MessageCollection.tpAllPlayersMessage());
+                    if(configMsg.getBoolean("commands.tpall.players.enabled")) players.sendMessage(MessageCollection.tpAllPlayersMessage());
                 }
 
                 p.sendMessage(MessageCollection.tpAllOwnMessage());

@@ -41,3 +41,7 @@ commands:
       - b
   visibility:
     description: changes the visibility of the players
+  icelobby:
+    description: reloading the plugin
+    aliases:
+      - il

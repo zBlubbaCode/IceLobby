@@ -10,21 +10,14 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.io.File;
-import java.rmi.MarshalException;
 import java.util.HashMap;
 
 public class VisibilityCommand implements CommandExecutor {
-
-    public static File itemFile = new File("plugins/IceLobby", "items.yml");
-    static FileConfiguration itemConfig = YamlConfiguration.loadConfiguration(itemFile);
 
     int level = 0;
     Plugin plugin = IceLobby.getPlugin(IceLobby.class);
@@ -93,12 +86,12 @@ public class VisibilityCommand implements CommandExecutor {
 
     public void changeColorItem(String color, Player p) {
         for(int i = 1; i < 10; i++) {
-            if(itemConfig.getString("items.hotbar." + i + ".type").equals("LIME_DYE")) {
+            if(IceLobby.itemConfig.getString("items.hotbar." + i + ".type").equals("LIME_DYE")) {
 
                 switch(color) {
-                    case "lime" -> p.getInventory().setItem(itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.LIME_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
-                    case "purple" -> p.getInventory().setItem(itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.PURPLE_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
-                    case "red" -> p.getInventory().setItem(itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.RED_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
+                    case "lime" -> p.getInventory().setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.LIME_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
+                    case "purple" -> p.getInventory().setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.PURPLE_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
+                    case "red" -> p.getInventory().setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.RED_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
                 }
 
             }

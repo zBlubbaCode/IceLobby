@@ -1,29 +1,30 @@
 package de.zblubba.icelobby;
 
 import de.zblubba.icelobby.commands.*;
-import de.zblubba.icelobby.items.AddItemsOnJoin;
-import de.zblubba.icelobby.items.CompassGUI;
-import de.zblubba.icelobby.items.CompassGUIListener;
-import de.zblubba.icelobby.items.WarpCommand;
+import de.zblubba.icelobby.items.*;
 import de.zblubba.icelobby.listeners.*;
-import de.zblubba.icelobby.util.ConfigBuilder;
 import de.zblubba.icelobby.util.Updater;
 import org.bukkit.Bukkit;
-import org.bukkit.WeatherType;
 import org.bukkit.World;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public final class IceLobby extends JavaPlugin {
 
     public static IceLobby instance;
+    public static int taskid;
 
     public static boolean isUpdateAvailable;
     public static boolean areConfigsLoaded = false;
@@ -31,11 +32,11 @@ public final class IceLobby extends JavaPlugin {
     public static File file = new File("plugins/IceLobby", "config.yml");
     public static FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-    public static File fileSpawn = new File("plugins/IceLobby", "spawn.yml");
-    static FileConfiguration spawnConfig = YamlConfiguration.loadConfiguration(fileSpawn);
-
     public static File fileItem = new File("plugins/IceLobby", "items.yml");
-    static FileConfiguration itemConfig = YamlConfiguration.loadConfiguration(fileItem);
+    public static FileConfiguration itemConfig = YamlConfiguration.loadConfiguration(fileItem);
+
+    public static File fileMessages = new File("plugins/IceLobby", "messages.yml");
+    public static FileConfiguration messagesConfig = YamlConfiguration.loadConfiguration(fileMessages);
 
     public static Updater updater;
     public static ArrayList<String> lobbyWorlds = new ArrayList<>();
@@ -48,14 +49,14 @@ public final class IceLobby extends JavaPlugin {
         createFiles();
         loadConfigFiles();
 
-        //ConfigBuilder.checkConfigs();
         registerListeners();
         registerCommands();
 
-        lobbyWorlds = (ArrayList<String>) config.getList("defaults.lobbyWorlds");
+        lobbyWorlds = (ArrayList<String>) config.getList("lobby_worlds");
 
         if(areConfigsLoaded) {
             setWeather();
+            startOneSecondInterval();
         }
 
         updater = new Updater(35799);
@@ -113,28 +114,29 @@ public final class IceLobby extends JavaPlugin {
         getCommand("nothing").setExecutor(new NothingCommand());
         getCommand("build").setExecutor(new BuildCommand());
         getCommand("visibility").setExecutor(new VisibilityCommand());
+        getCommand("icelobby").setExecutor(new IceLobbyCommand());
     }
 
-    public void createFiles() {
-        if(!IceLobby.fileItem.exists() | !IceLobby.fileSpawn.exists()) {
+    public static void createFiles() {
+        if(!IceLobby.fileItem.exists() || !IceLobby.fileMessages.exists()) {
             IceLobby.getInstance().getLogger().info("One or more files were not found. Creating...");
             if(!IceLobby.fileItem.exists()) {
                 IceLobby.fileItem.getParentFile().mkdirs();
                 IceLobby.getInstance().saveResource("items.yml", false);
             }
-            if(!IceLobby.fileSpawn.exists()) {
-                IceLobby.fileSpawn.getParentFile().mkdirs();
-                IceLobby.getInstance().saveResource("spawn.yml", false);
+            if(!IceLobby.fileMessages.exists()) {
+                IceLobby.fileMessages.getParentFile().mkdirs();
+                IceLobby.getInstance().saveResource("messages.yml", false);
             }
         }
     }
 
-    public void loadConfigFiles() {
+    public static void loadConfigFiles() {
         IceLobby.getInstance().getLogger().info("Loading the config files.");
         try {
             IceLobby.config.load(file);
-            IceLobby.spawnConfig.load(fileSpawn);
             IceLobby.itemConfig.load(fileItem);
+            IceLobby.messagesConfig.load(fileMessages);
 
             areConfigsLoaded = true;
 
@@ -156,10 +158,11 @@ public final class IceLobby extends JavaPlugin {
     public static ArrayList<String> getLobbyWorlds() {return lobbyWorlds;}
 
     public static void setWeather() {
-        String defaultWeather = config.getString("defaults.default_weather");
+        String defaultWeather = config.getString("default_weather");
         if(lobbyWorlds == null) return;
 
         for(int i = 0; i < getLobbyWorlds().size(); i++) {
+            if(Bukkit.getWorld(getLobbyWorlds().get(i)) == null) return;
             World world = Bukkit.getWorld(getLobbyWorlds().get(i));
             switch(defaultWeather) {
                 case "CLEAR" -> {
@@ -178,6 +181,38 @@ public final class IceLobby extends JavaPlugin {
         }
     }
 
+    public static void startOneSecondInterval() {
+        taskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(IceLobby.getPlugin(IceLobby.class), () -> {
+
+            for(Player players : Bukkit.getOnlinePlayers()) {
+                if(!config.getBoolean("void.teleport_on_fall")) return;
+                if(!IceLobby.getLobbyWorlds().contains(players.getLocation().getWorld().getName())) return;
+                int yborder = config.getInt("void.yborder");
+                if(players.getLocation().getY() <= yborder) {
+                    players.teleport(WarpManager.getWarp(config.getString("void.warp_to_teleport")));
+                }
+            }
+
+            for(int i = 0; i < getLobbyWorlds().size(); i++) {
+                World world = Bukkit.getWorld(getLobbyWorlds().get(i));
+                if(world == null) return;
+                if(config.getBoolean("time.locked_time")) world.setTime(config.getInt("time.time"));
+                if(!config.getBoolean("time.locked_time") && config.getBoolean("time.same_as_real")) {
+                    ZonedDateTime nowZoned = ZonedDateTime.now();
+                    Instant midnight = nowZoned.toLocalDate().atStartOfDay(nowZoned.getZone()).toInstant();
+                    Duration duration = Duration.between(midnight, Instant.now());
+                    long seconds = duration.getSeconds();
+                    int secondsToMc = (int) (seconds / 3.6 - 6000);
+                    world.setTime(secondsToMc);
+                }
+            }
+        }, 20, 20);
+    }
+
+    public static void stopInterval() {
+        Bukkit.getScheduler().cancelTask(taskid);
+    }
+
     public static IceLobby getInstance() {
         return instance;
     }
@@ -194,8 +229,9 @@ public final class IceLobby extends JavaPlugin {
 //TODO: CHECK - hotbarItems can be moved + Offhand
 //TODO: CHECK - updater
 //TODO: CHECK - only 1 world with name or all worlds option
+//TODO: CHECK - void damage and teleport
 //TODO: tablist
 //TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
 //TODO: Placeholder API
-
+//TODO: play sound on compass teleport
 

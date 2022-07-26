@@ -107,7 +107,7 @@ compass:
       type: NETHER_STAR
       name: '&6Spawn'
       lore: '&7Click for teleporting to Spawn'
-      command: warp spawn
+      command: warp Spawn
     '28':
       type: BARRIER
       name: '&ccoming sooon!'

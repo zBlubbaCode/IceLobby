@@ -1,25 +1,18 @@
 package de.zblubba.icelobby.util;
 
+import de.zblubba.icelobby.IceLobby;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Scoreboard {
 
-    public static File configFile = new File("plugins/IceLobby", "config.yml");
-    static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-
     public static void setScoreboard(Player p) {
-        String title = config.getString("scoreboard.title"); title = title.replace("&", "§"); title = title.replace("{user}", p.getName());
-        ArrayList<String> scores = (ArrayList<String>) config.getList("scoreboard.scores");
+        String title = IceLobby.config.getString("scoreboard.title"); title = title.replace("&", "§"); title = title.replace("{user}", p.getName());
+        ArrayList<String> scores = (ArrayList<String>) IceLobby.config.getList("scoreboard.scores");
 
         org.bukkit.scoreboard.Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective obj = board.registerNewObjective("IceLobby", "dummy");

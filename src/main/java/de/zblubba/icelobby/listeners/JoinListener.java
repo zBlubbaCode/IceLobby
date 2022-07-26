@@ -2,27 +2,22 @@ package de.zblubba.icelobby.listeners;
 
 import de.zblubba.icelobby.IceLobby;
 import de.zblubba.icelobby.commands.VisibilityCommand;
+import de.zblubba.icelobby.items.WarpManager;
+import de.zblubba.icelobby.util.MessageCollection;
 import de.zblubba.icelobby.util.Scoreboard;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class JoinListener implements Listener {
 
-    public static File configFile = new File("plugins/IceLobby", "config.yml");
-    static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-
-    public static File spawnFile = new File("plugins/IceLobby", "spawn.yml");
-    static FileConfiguration spawnConfig = YamlConfiguration.loadConfiguration(spawnFile);
+    static int taskid;
 
     public static ArrayList<String> allPlayerList = new ArrayList<>();
     public static ArrayList<String> vipPlayerList = new ArrayList<>();
@@ -34,48 +29,29 @@ public class JoinListener implements Listener {
         allPlayerList.add(p.getName());
         if(p.hasPermission("icelobby.vip")) vipPlayerList.add(p.getName());
 
-        String joinMessage = config.getString("messages.events.join.message"); joinMessage = ChatColor.translateAlternateColorCodes('&', joinMessage);
-        joinMessage = joinMessage.replace("{user}", p.getName());
-        String title = config.getString("messages.events.join.title"); title = ChatColor.translateAlternateColorCodes('&', title);
-        title = title.replace("{user}", p.getName());
-        String subtitle = config.getString("messages.events.join.subtitle"); subtitle = ChatColor.translateAlternateColorCodes('&', subtitle);
-        subtitle = subtitle.replace("{user}", p.getName());
+        sendActionbar();
 
-        if(config.getBoolean("messages.events.join.enabled")) {event.setJoinMessage(joinMessage);}
+        if(IceLobby.config.getBoolean("join.enabled")) {event.setJoinMessage(MessageCollection.joinMessage(p));}
 
-        GameMode defaultGameMode = GameMode.valueOf(config.getString("defaults.player_gamemode"));
+        GameMode defaultGameMode = GameMode.valueOf(IceLobby.config.getString("default_gamemode"));
         p.setGameMode(defaultGameMode);
 
-        p.sendTitle(title, subtitle);
-        if(config.getBoolean("scoreboard.enabled")) {Scoreboard.setScoreboard(p);}
-        if(config.getBoolean("defaults.heal_on_join")) p.setHealth(20);p.setFoodLevel(20);
+        p.sendTitle(MessageCollection.title(p), MessageCollection.subtitle(p));
+        if(IceLobby.config.getBoolean("scoreboard.enabled")) {Scoreboard.setScoreboard(p);}
+        if(IceLobby.config.getBoolean("heal_on_join")) p.setHealth(20);p.setFoodLevel(20);
+        if(IceLobby.config.getBoolean("send_welcome_message")) p.sendMessage(IceLobby.messagesConfig.getString("join.welcome_message"));
 
-        if(spawnConfig.getBoolean("settings.teleportonjoin") && spawnConfig.getString("spawn.world") != null && spawnConfig.getBoolean("settings.enabled")) {
-            World world = Bukkit.getWorld(spawnConfig.getString("spawn.world"));
-            double x = spawnConfig.getDouble("spawn.x");
-            double y = spawnConfig.getDouble("spawn.y");
-            double z = spawnConfig.getDouble("spawn.z");
-            float yaw = (float) spawnConfig.getDouble("spawn.yaw");
-            float pitch = (float) spawnConfig.getDouble("spawn.pitch");
-            p.teleport(new Location(world, x, y, z, yaw, pitch));
+        if(IceLobby.config.getBoolean("spawn.enabled") && IceLobby.config.getBoolean("join.teleport_on_join")) {
+            String spawnWarpName = IceLobby.config.getString("spawn.spawn_warp_name");
+            if(WarpManager.getWarp(spawnWarpName) != null) {
+                p.teleport(WarpManager.getWarp(IceLobby.config.getString("spawn.spawn_warp_name")));
+            } else p.sendMessage(MessageCollection.spawnNotSet());
         }
 
-        if(config.getBoolean("messages.util.actionbar.enabled")) {
-            String message = config.getString("messages.util.actionbar.message"); message = message.replace("&", "§");
-            final String finalMessage = message.replace("{user}", p.getName());
 
-            Bukkit.getScheduler().scheduleSyncRepeatingTask(IceLobby.getPlugin(IceLobby.class), () -> {
-                for(Player players : Bukkit.getOnlinePlayers()) {
-                    if(IceLobby.getLobbyWorlds().contains(event.getPlayer().getLocation().getWorld().getName())) {
-                        players.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(finalMessage));
-                    }
-                }
-            }, 0, 40);
-        }
-
-        if(config.getBoolean("messages.events.join.playsound")) {
+        if(IceLobby.config.getBoolean("join.playsound")) {
             Bukkit.getScheduler().runTaskLater(IceLobby.getPlugin(IceLobby.class), () -> {
-                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 255, 1);
+                p.playSound(p.getLocation(), Sound.valueOf(IceLobby.config.getString("join.sound")), 255, 1);
             }, 40);
         }
 
@@ -92,5 +68,22 @@ public class JoinListener implements Listener {
                 case "none" -> player.hidePlayer(IceLobby.getPlugin(IceLobby.class), p);
             }
         }
+    }
+
+    public static void sendActionbar() {
+        if(IceLobby.messagesConfig.getBoolean("actionbar.enabled")) {
+
+            taskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(IceLobby.getPlugin(IceLobby.class), () -> {
+                for(Player players : Bukkit.getOnlinePlayers()) {
+                    if(IceLobby.getLobbyWorlds().contains(players.getLocation().getWorld().getName())) {
+                        players.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessageCollection.actionbarMessage(players)));
+                    }
+                }
+            }, 0, 40);
+        }
+    }
+
+    public static void clearActionbar() {
+        Bukkit.getScheduler().cancelTask(taskid);
     }
 }

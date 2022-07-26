@@ -3,6 +3,7 @@ package de.zblubba.icelobby.listeners;
 import de.zblubba.icelobby.IceLobby;
 import de.zblubba.icelobby.commands.BuildCommand;
 import de.zblubba.icelobby.items.AddItemsOnJoin;
+import de.zblubba.icelobby.items.WarpManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -21,6 +22,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
@@ -76,7 +78,7 @@ public class GeneralListeners implements Listener {
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
         if(event.getEntity() instanceof Player p) {
             if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
-            if(config.getBoolean("defaults.unlimited_food")) {
+            if(config.getBoolean("unlimited_food")) {
                 event.setCancelled(true);
             }
         }
@@ -86,7 +88,7 @@ public class GeneralListeners implements Listener {
     public void onEntityDamage(EntityDamageEvent event) {
         if(event.getEntity() instanceof Player p) {
             if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
-            if(config.getBoolean("defaults.no_damage")) {
+            if(config.getBoolean("no_damage")) {
                 event.setCancelled(true);
             }
         }
@@ -95,7 +97,7 @@ public class GeneralListeners implements Listener {
     @EventHandler
     public void onWeatherChange(WeatherChangeEvent event) {
         if(!IceLobby.getLobbyWorlds().contains(event.getWorld().getName())) return;
-        if(config.getBoolean("defaults.lock_weather")) {
+        if(config.getBoolean("lock_weather")) {
             event.setCancelled(true);
         }
     }
@@ -103,7 +105,7 @@ public class GeneralListeners implements Listener {
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent event) {
         if(!IceLobby.getLobbyWorlds().contains(event.getEntity().getLocation().getWorld().getName())) return;
-        if(config.getBoolean("defaults.no_explosions")) {
+        if(config.getBoolean("no_explosions")) {
             event.setCancelled(true);
         }
     }
@@ -111,7 +113,7 @@ public class GeneralListeners implements Listener {
     @EventHandler
     public void onLeavesDecay(LeavesDecayEvent event) {
         if(!IceLobby.getLobbyWorlds().contains(event.getBlock().getLocation().getWorld().getName())) return;
-        if(config.getBoolean("defauls.stop_despawning_leaves")) {
+        if(config.getBoolean("stop_despawning_leaves")) {
             event.setCancelled(true);
         }
     }
@@ -120,7 +122,7 @@ public class GeneralListeners implements Listener {
     public void onEntityPickupItem(EntityPickupItemEvent event) {
         if(event.getEntity() instanceof Player p) {
             if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
-            if(config.getBoolean("defaults.stop_pickup_items") && !BuildCommand.getBuildPlayers().contains(p)) {
+            if(config.getBoolean("stop_pickup_items") && !BuildCommand.getBuildPlayers().contains(p)) {
                 event.setCancelled(true);
             }
         }
@@ -140,17 +142,17 @@ public class GeneralListeners implements Listener {
     @EventHandler
     public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
         if(!IceLobby.getLobbyWorlds().contains(event.getPlayer().getLocation().getWorld().getName())) {
-            if(config.getBoolean("defaults.world_change.change_gamemode")) {
-                String gamemode = config.getString("defaults.world_change.gamemode");
+            if(config.getBoolean("world_change.change_gamemode")) {
+                String gamemode = config.getString("world_change.gamemode");
                 event.getPlayer().setGameMode(GameMode.valueOf(gamemode));
-                if(config.getBoolean("defaults.world_change.clear_hotbar")) {
+                if(config.getBoolean("world_change.clear_hotbar")) {
                     for(int i = 0; i < 9; i++) {
                         event.getPlayer().getInventory().setItem(i, null);
                     }
                 }
             }
         } else {
-            event.getPlayer().setGameMode(GameMode.valueOf(config.getString("defaults.player_gamemode")));
+            event.getPlayer().setGameMode(GameMode.valueOf(config.getString("default_gamemode")));
             AddItemsOnJoin.addHotbarItems(event.getPlayer());
         }
     }

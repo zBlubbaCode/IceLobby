@@ -1,5 +1,6 @@
 package de.zblubba.icelobby.commands;
 
+import de.zblubba.icelobby.IceLobby;
 import de.zblubba.icelobby.items.AddItemsOnJoin;
 import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.GameMode;
@@ -17,9 +18,6 @@ import java.util.HashMap;
 
 public class BuildCommand implements CommandExecutor {
 
-    public static File configFile = new File("plugins/IceLobby", "config.yml");
-    static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-
     public static ArrayList<Player> buildPlayers = new ArrayList<>();
     private HashMap<Player, ItemStack[]> playersBuildInventory = new HashMap<>();
 
@@ -27,7 +25,7 @@ public class BuildCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player p) {
             if(p.hasPermission("icelobby.commands.build")) {
-                if(!config.getBoolean("defaults.build_command_only_in_build_world")) {
+                if(!IceLobby.config.getBoolean("build_only_lobby_world")) {
                     sender.sendMessage("§cBuild Command is only available in the lobby-worlds!");
                     return false;
                 }
@@ -43,13 +41,9 @@ public class BuildCommand implements CommandExecutor {
                 } else {
                     buildPlayers.remove(p);
 
-                    GameMode defaultGameMode = GameMode.valueOf(config.getString("defaults.player_gamemode"));
+                    GameMode defaultGameMode = GameMode.valueOf(IceLobby.config.getString("default_gamemode"));
                     p.setGameMode(defaultGameMode);
                     p.getInventory().setContents(playersBuildInventory.get(p));
-
-                    //if(config.getBoolean("messages.commands.build.addhotbaritemsonoff")) {
-                        //AddItemsOnJoin.addHotbarItems(p);
-                    //}
 
                     p.sendMessage(MessageCollection.getBuildModeOff());
                 }

@@ -56,6 +56,14 @@ commands:
     exists: "%prefix% &cThis warp already exists"
     not_exists: "%prefix% &cThis warp does not exist!"
 
+  economy:
+    coins: "&eCoins &8| &a"
+    coins_others: "&e%player%s coins &8| &a"
+    player_offline: "&cThis Player is offline!"
+    coins_added: "%prefix% &7The player §a%player% &7has received &e%coins% coins&7!"
+    coins_removed: "%prefix% &7You removed &e%coins% coins &7from the player &c%player%&7!"
+    coins_set: "%prefix% &7You set the amount of coins from the player &c%player% &7to §e%coins%&7!"
+
   build:
     activated: "%prefix% &7Build mode &aactivated&7!"
     deactivated: "%prefix% &7Build mode &cdeactivated&7!"

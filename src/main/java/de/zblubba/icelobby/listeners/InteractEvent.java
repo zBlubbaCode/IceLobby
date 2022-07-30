@@ -55,6 +55,7 @@ public class InteractEvent implements Listener {
                 } else return;
 
                 if(itemNameTogether.equals(itemNameInHand)) {
+                    if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + slot) == null) return;
                     p.performCommand(IceLobby.itemConfig.getString("items.hotbar." + slot + ".command"));
                     event.setCancelled(true);
                 }

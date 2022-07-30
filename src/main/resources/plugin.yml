@@ -45,3 +45,5 @@ commands:
     description: reloading the plugin
     aliases:
       - il
+  coins:
+    description: economysystem for the shop

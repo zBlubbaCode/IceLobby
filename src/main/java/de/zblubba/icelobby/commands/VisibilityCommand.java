@@ -19,18 +19,18 @@ import java.util.HashMap;
 
 public class VisibilityCommand implements CommandExecutor {
 
-    int level = 0;
     Plugin plugin = IceLobby.getPlugin(IceLobby.class);
     public static HashMap<Player, String> playerHider = new HashMap<>();
+    public static HashMap<Player, Integer> playerLevel = new HashMap<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player p) {
 
-            switch(level) {
+            switch(playerLevel.get(p)) {
                 //only VIP
                 case 0 -> {
-                    setLevel(1);
+                    setLevel(1, p);
                     p.sendMessage(MessageCollection.visibilityOnlyVIP());
                     playEffect(p);
 
@@ -46,7 +46,7 @@ public class VisibilityCommand implements CommandExecutor {
 
                 //none
                 case 1 -> {
-                    setLevel(2);
+                    setLevel(2, p);
                     playEffect(p);
 
                     playerHider.put(p, "none");
@@ -61,7 +61,7 @@ public class VisibilityCommand implements CommandExecutor {
 
                 //all
                 case 2 -> {
-                    setLevel(0);
+                    setLevel(0, p);
                     playEffect(p);
 
                     playerHider.put(p, "all");
@@ -86,6 +86,7 @@ public class VisibilityCommand implements CommandExecutor {
 
     public void changeColorItem(String color, Player p) {
         for(int i = 1; i < 10; i++) {
+            if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + i) == null) return;
             if(IceLobby.itemConfig.getString("items.hotbar." + i + ".type").equals("LIME_DYE")) {
 
                 switch(color) {
@@ -98,6 +99,9 @@ public class VisibilityCommand implements CommandExecutor {
         }
     }
 
-    public void setLevel(int level) {this.level = level;}
+    public static void setLevel(int level, Player player) {
+        getPlayerLevel().put(player, level);
+    }
     public static HashMap<Player, String> getPlayerHider() {return playerHider;}
+    public static HashMap<Player, Integer> getPlayerLevel() {return playerLevel;}
 }

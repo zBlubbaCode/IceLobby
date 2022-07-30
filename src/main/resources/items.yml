@@ -17,69 +17,106 @@ items:
   # the hotbar has only 9 slots, so more than 9 will not work.
   # and the slots start at 0 - 8
   hotbar:
+#    '1':
+#      enabled: true
+#      slot: 0
+#      name: '&6Friends &7- &arightclick'
+#      lore: '&7Click to open friends menu'
+#      type: OWN_HEAD
+#      command: friends
+#    '2':
+#      enabled: true
+#      slot: 1
+#      name: '&cPrivate Lobby &7- &arightclick'
+#      lore: '&7Click to get your own lobby!'
+#      type: TNT
+#      command: privatelobby
+#    '3':
+#      enabled: true
+#      slot: 2
+#      name: '&bPlayer Visibility &7- &arightclick'
+#      lore: '&7Click to show only chosen players!'
+#      type: LIME_DYE
+#      command: visibility
+#    '4':
+#      enabled: true
+#      slot: 3
+#      name: '&c'
+#      lore: ''
+#      type: BLACK_STAINED_GLASS_PANE
+#      command: nothing
+#    '5':
+#      enabled: true
+#      slot: 4
+#      name: '&aCompass'
+#      lore: '&7Click to open the compass menu!'
+#      type: COMPASS
+#      command: navigator
+#    '6':
+#      enabled: true
+#      slot: 5
+#      name: '&c'
+#      lore: ''
+#      type: BLACK_STAINED_GLASS_PANE
+#      command: nothing
+#    '7':
+#      enabled: true
+   ##   slot: 6
+   #   name: '&eNick'
+  #    lore: '&7Click to nick'
+  #    type: NAME_TAG
+  #    command: nick
+  ##  '8':
+ #     enabled: true
+ #     slot: 7
+ #     name: '&dShop'
+ ##     lore: '&7Click to open the shop!'
+#      type: CHEST
+#      command: shop
+#    '9':
+#      enabled: true
+#      slot: 8
+#      name: '&9Lobbies'
+#      lore: '&7Click to switch lobby!'
+#      type: NETHER_STAR
+#      command: lobbies
+
+
     '1':
       enabled: true
       slot: 0
-      name: '&6Friends &7- &arightclick'
-      lore: '&7Click to open friends menu'
-      type: OWN_HEAD
-      command: friends
-    '2':
-      enabled: true
-      slot: 1
-      name: '&cPrivate Lobby &7- &arightclick'
-      lore: '&7Click to get your own lobby!'
-      type: TNT
-      command: privatelobby
-    '3':
-      enabled: true
-      slot: 2
-      name: '&bPlayer Visibility &7- &arightclick'
-      lore: '&7Click to show only chosen players!'
-      type: LIME_DYE
-      command: visibility
-    '4':
-      enabled: true
-      slot: 3
-      name: '&c'
-      lore: ''
-      type: BLACK_STAINED_GLASS_PANE
-      command: nothing
-    '5':
-      enabled: true
-      slot: 4
       name: '&aCompass'
       lore: '&7Click to open the compass menu!'
       type: COMPASS
       command: navigator
-    '6':
+    '2':
       enabled: true
-      slot: 5
-      name: '&c'
-      lore: ''
-      type: BLACK_STAINED_GLASS_PANE
-      command: nothing
-    '7':
+      slot: 1
+      name: '&bPlayer Visibility &7- &arightclick'
+      lore: '&7Click to show only chosen players!'
+      type: LIME_DYE
+      command: visibility
+    '3':
       enabled: true
-      slot: 6
-      name: '&eNick'
-      lore: '&7Click to nick'
-      type: NAME_TAG
-      command: nick
-    '8':
-      enabled: true
-      slot: 7
+      slot: 4
       name: '&dShop'
       lore: '&7Click to open the shop!'
       type: CHEST
       command: shop
-    '9':
+    '4':
       enabled: true
-      slot: 8
+      slot: 7
       name: '&9Lobbies'
       lore: '&7Click to switch lobby!'
       type: NETHER_STAR
       command: lobbies
+    '5':
+      enabled: true
+      slot: 8
+      name: '&6Friends &7- &arightclick'
+      lore: '&7Click to open friends menu'
+      type: OWN_HEAD
+      command: friends
 #the gui starts with 0 and ends with the number of your rows multiplied by 9
 compass:
   gui:

@@ -27,6 +27,7 @@ public class AddItemsOnJoin implements Listener {
     public static void addHotbarItems(Player p) {
         if(IceLobby.itemConfig.getBoolean("items.enabled") && IceLobby.itemConfig.getBoolean("items.addonjoin")) {
             for(int i = 1; i < 10; i++) {
+                if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + i) == null) return;
                 if(!MessageCollection.getHotbarItemType(i).equals("OWN_HEAD")) {
                     ItemStack item = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItemType(i))).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build();
                     Inventory inv = p.getInventory();

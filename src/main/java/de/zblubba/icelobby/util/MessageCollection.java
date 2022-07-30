@@ -105,13 +105,57 @@ public class MessageCollection {
         return message;
     }
 
+    //economy
+    public static String getCoinsCommand(Player p) {
+        String coins = config.getString("commands.economy.coins");
+        coins = replaceWithVariables(coins);
+        coins = coins.replace("%player%", p.getName());
+        return coins;
+    }
+    public static String getCoinsOthers(String name) {
+        String coinsOthers = config.getString("commands.economy.coins_others");
+        coinsOthers = replaceWithVariables(coinsOthers);
+        coinsOthers = coinsOthers.replace("%player%", name);
+        return coinsOthers;
+    }
+    public static String getPlayerOffline() {
+        String offlineMsg = config.getString("commands.economy.player_offline");
+        offlineMsg = replaceWithVariables(offlineMsg);
+        return offlineMsg;
+    }
+    public static String coinsAdded(int coins, Player p) {
+        String coinsAdded = config.getString("commands.economy.coins_added");
+        coinsAdded = replaceWithVariables(coinsAdded);
+        coinsAdded = coinsAdded.replace("%coins%", String.valueOf(coins));
+        coinsAdded = coinsAdded.replace("%player%", p.getName());
+        return coinsAdded;
+    }
+    public static String coinsRemoved(int coins, Player p) {
+        String coinsRemoved = config.getString("commands.economy.coins_removed");
+        coinsRemoved = replaceWithVariables(coinsRemoved);
+        coinsRemoved = coinsRemoved.replace("%coins%", String.valueOf(coins));
+        coinsRemoved = coinsRemoved.replace("%player%", p.getName());
+        return coinsRemoved;
+    }
+    public static String coinsSet(int coins, Player p) {
+        String coinsSet = config.getString("commands.economy.coins_set");
+        coinsSet = replaceWithVariables(coinsSet);
+        coinsSet = coinsSet.replace("%coins%", String.valueOf(coins));
+        coinsSet = coinsSet.replace("%player%", p.getName());
+        return coinsSet;
+    }
+
 
     public static String replaceWithVariables(String input) {
+        if(input == null) {
+            IceLobby.getInstance().getLogger().info("ERROR | On Message Send");
+            return "§cERROR";
+        }
         String prefix = config.getString("prefix"); prefix = prefix.replace("&", "§");
         int onlinePlayersInt = Bukkit.getServer().getOnlinePlayers().size();String onlinePlayers = String.valueOf(onlinePlayersInt);
         int maxPlayersInt = Bukkit.getMaxPlayers();String maxPlayers = String.valueOf(maxPlayersInt);
 
-        input = input.replace("&", "§");
+        input = input.replace('&', '§');
         input = input.replace("%prefix%", prefix);
         input = input.replace("%onlineplayers%", onlinePlayers);
         input = input.replace("%maxplayers%", maxPlayers);

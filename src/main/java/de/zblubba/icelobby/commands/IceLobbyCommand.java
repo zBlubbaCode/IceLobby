@@ -49,7 +49,7 @@ public class IceLobbyCommand implements CommandExecutor {
                             JoinListener.clearActionbar();
                             JoinListener.sendActionbar();
 
-                            IceLobby.startOneSecondInterval();
+                            IceLobby.stopInterval();
                             IceLobby.startOneSecondInterval();
                             IceLobby.setWeather();
 

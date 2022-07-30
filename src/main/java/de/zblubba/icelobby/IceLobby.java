@@ -3,6 +3,7 @@ package de.zblubba.icelobby;
 import de.zblubba.icelobby.commands.*;
 import de.zblubba.icelobby.items.*;
 import de.zblubba.icelobby.listeners.*;
+import de.zblubba.icelobby.shop.EconomySystem;
 import de.zblubba.icelobby.util.Updater;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -37,6 +38,9 @@ public final class IceLobby extends JavaPlugin {
 
     public static File fileMessages = new File("plugins/IceLobby", "messages.yml");
     public static FileConfiguration messagesConfig = YamlConfiguration.loadConfiguration(fileMessages);
+
+    public static File fileMoney = new File("plugins/IceLobby", "money.yml");
+    public static FileConfiguration moneyConfig = YamlConfiguration.loadConfiguration(fileMessages);
 
     public static Updater updater;
     public static ArrayList<String> lobbyWorlds = new ArrayList<>();
@@ -115,10 +119,11 @@ public final class IceLobby extends JavaPlugin {
         getCommand("build").setExecutor(new BuildCommand());
         getCommand("visibility").setExecutor(new VisibilityCommand());
         getCommand("icelobby").setExecutor(new IceLobbyCommand());
+        getCommand("coins").setExecutor(new EconomySystem());
     }
 
     public static void createFiles() {
-        if(!IceLobby.fileItem.exists() || !IceLobby.fileMessages.exists()) {
+        if(!IceLobby.fileItem.exists() || !IceLobby.fileMessages.exists() || !IceLobby.fileMoney.exists()) {
             IceLobby.getInstance().getLogger().info("One or more files were not found. Creating...");
             if(!IceLobby.fileItem.exists()) {
                 IceLobby.fileItem.getParentFile().mkdirs();
@@ -127,6 +132,10 @@ public final class IceLobby extends JavaPlugin {
             if(!IceLobby.fileMessages.exists()) {
                 IceLobby.fileMessages.getParentFile().mkdirs();
                 IceLobby.getInstance().saveResource("messages.yml", false);
+            }
+            if(!IceLobby.fileMoney.exists()) {
+                IceLobby.fileMoney.getParentFile().mkdirs();
+                IceLobby.getInstance().saveResource("money.yml", false);
             }
         }
     }
@@ -137,6 +146,7 @@ public final class IceLobby extends JavaPlugin {
             IceLobby.config.load(file);
             IceLobby.itemConfig.load(fileItem);
             IceLobby.messagesConfig.load(fileMessages);
+            IceLobby.moneyConfig.load(fileMoney);
 
             areConfigsLoaded = true;
 
@@ -218,20 +228,10 @@ public final class IceLobby extends JavaPlugin {
     }
 
 }
-//TODO: CHECK - MessageCollection add more variabled - {prefix}, {maxPlayers}, {onlineplayers}
-//TODO: CHECK - rewrite commands to implement MessageCollection
-//TODO: CHECK - add Compass
-//TODO: CHECK - add own Player head to hotbar
-//TODO: CHECK - help command
-//TODO: CHECK - change unknown command message
-//TODO: CHECK - interact with lobby items
-//TODO: CHECK - Build mode
-//TODO: CHECK - hotbarItems can be moved + Offhand
-//TODO: CHECK - updater
-//TODO: CHECK - only 1 world with name or all worlds option
-//TODO: CHECK - void damage and teleport
-//TODO: tablist
+
 //TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
 //TODO: Placeholder API
 //TODO: play sound on compass teleport
+
+//TODO: BUG - Visibility onPlayerJoin Player is vibible
 

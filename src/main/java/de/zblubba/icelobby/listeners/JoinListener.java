@@ -55,8 +55,14 @@ public class JoinListener implements Listener {
             }, 40);
         }
 
+        if(IceLobby.moneyConfig.getConfigurationSection(p.getUniqueId().toString()) == null) {
+            IceLobby.moneyConfig.set(p.getUniqueId() + ".money", 0);
+            IceLobby.saveFile(IceLobby.fileMoney, IceLobby.moneyConfig);
+        }
+
+        VisibilityCommand.setLevel(0, p);
         for(int i = 0; i < VisibilityCommand.getPlayerHider().size(); i++) {
-            Player player = (Player) VisibilityCommand.playerHider.keySet().toArray()[0];
+            Player player = (Player) VisibilityCommand.playerHider.keySet().toArray()[i];
             String type = VisibilityCommand.getPlayerHider().get(player);
 
             switch(type) {

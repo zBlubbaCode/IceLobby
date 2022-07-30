@@ -2,15 +2,16 @@ package de.zblubba.icelobby.util;
 
 import de.zblubba.icelobby.IceLobby;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.Material;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
 public class MessageCollection {
 
-    static FileConfiguration config = IceLobby.messagesConfig;
-    static FileConfiguration itemConfig = IceLobby.itemConfig;
+    static Configuration config = IceLobby.messagesConfig;
+    static Configuration itemConfig = IceLobby.itemConfig;
 
     //util
     public static String getPrefix() {String prefix = config.getString("prefix"); prefix = replaceWithVariables(prefix);return prefix;}
@@ -73,6 +74,50 @@ public class MessageCollection {
         String command = itemConfig.getString("compass.items." + number + ".command");
         return command;
     }
+
+    public static String getShopGUITitle(Player p) {
+        String title = itemConfig.getString("shop.gui.title");
+        title = replaceWithVariables(title);
+        title = title.replace("%player%", p.getName());
+        return title;
+    }
+    public static String getShopItemName(int number) {
+        String name = itemConfig.getString("shop.items." + number + ".name");
+        name = replaceWithVariables(name);
+        return name;
+    }
+    public static String getShopItemLore(int number) {
+        String lore = itemConfig.getString("shop.items." + number + ".lore");
+        lore = replaceWithVariables(lore);
+        return lore;
+    }
+    public static String getShopItemCommand(int number) {
+        String command = itemConfig.getString("shop.items." + number + ".command");
+        return command;
+    }
+    public static Material getShopItemType(int number) {
+        Material type = Material.valueOf(itemConfig.getString("shop.items." + number + ".type"));
+        return type;
+    }
+    public static int getShopItemCost(int number) {
+        int value = itemConfig.getInt("shop.items." + number + ".cost");
+        return value;
+    }
+    public static String getShopItemAction(int number) {
+        String action = itemConfig.getString("shop.items." + number + ".action");
+        return action;
+    }
+    public static String getActionItemName(String action) {
+        String name = itemConfig.getString("shop.action." + action + ".get_item.name");
+        name = replaceWithVariables(name);
+        return name;
+    }
+    public static String getActionItemLore(String action) {
+        String lore = itemConfig.getString("shop.action." + action + ".get_item.lore");
+        lore = replaceWithVariables(lore);
+        return lore;
+    }
+
 
     //commands
 
@@ -143,6 +188,12 @@ public class MessageCollection {
         coinsSet = coinsSet.replace("%coins%", String.valueOf(coins));
         coinsSet = coinsSet.replace("%player%", p.getName());
         return coinsSet;
+    }
+
+    public static String notEnoughCoins() {
+        String notEnoughCoins = config.getString("commands.economy.not_enough_coins");
+        notEnoughCoins = replaceWithVariables(notEnoughCoins);
+        return notEnoughCoins;
     }
 
 

@@ -90,9 +90,9 @@ public class VisibilityCommand implements CommandExecutor {
             if(IceLobby.itemConfig.getString("items.hotbar." + i + ".type").equals("LIME_DYE")) {
 
                 switch(color) {
-                    case "lime" -> p.getInventory().setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.LIME_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
-                    case "purple" -> p.getInventory().setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.PURPLE_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
-                    case "red" -> p.getInventory().setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), new ItemBuilder(Material.RED_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
+                    case "lime" -> p.getInventory().setItem(i, new ItemBuilder(Material.LIME_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
+                    case "purple" -> p.getInventory().setItem(i, new ItemBuilder(Material.PURPLE_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
+                    case "red" -> p.getInventory().setItem(i, new ItemBuilder(Material.RED_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
                 }
 
             }

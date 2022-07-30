@@ -35,31 +35,39 @@ public class InteractEvent implements Listener {
             }, 3);
         }
 
-        int slot = p.getInventory().getHeldItemSlot() + 1;
+        int slot = p.getInventory().getHeldItemSlot();
+        IceLobby.getInstance().getLogger().info("0");
         if(IceLobby.itemConfig.get("items.hotbar." + slot) != null) {
+            IceLobby.getInstance().getLogger().info("1");
             if(p.getInventory().getItemInMainHand() == null) return;
             if(!IceLobby.itemConfig.getBoolean("items.hotbar." + slot + ".enabled")) return;
-            if(IceLobby.itemConfig.getInt("items.hotbar." + slot + ".slot") == p.getInventory().getHeldItemSlot()) {
-                String itemName = IceLobby.itemConfig.getString("items.hotbar." + slot + ".name");
-                String[] itemNameSplitted = itemName.split("&");
-                for(int i = 0; i < itemNameSplitted.length; i++) {
-                    itemNameSplitted[i] = removeFirstChar(itemNameSplitted[i]);
-                }
-                String itemNameTogether = "";
-                for(int i = 0; i < itemNameSplitted.length; i++) {
-                    itemNameTogether = itemNameTogether + itemNameSplitted[i];
-                }
-                String itemNameInHand;
-                if(p.getInventory().getItemInMainHand().hasItemMeta()) {
-                    itemNameInHand = ChatColor.stripColor(p.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
-                } else return;
-
-                if(itemNameTogether.equals(itemNameInHand)) {
-                    if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + slot) == null) return;
-                    p.performCommand(IceLobby.itemConfig.getString("items.hotbar." + slot + ".command"));
-                    event.setCancelled(true);
-                }
+            IceLobby.getInstance().getLogger().info(slot + " - Slot");
+            IceLobby.getInstance().getLogger().info(IceLobby.itemConfig.get("items.hotbar." + slot + ".slot") + " - " + p.getInventory().getHeldItemSlot());
+            IceLobby.getInstance().getLogger().info("3");
+            String itemName = IceLobby.itemConfig.getString("items.hotbar." + slot + ".name");
+            String[] itemNameSplitted = itemName.split("&");
+            for(int i = 0; i < itemNameSplitted.length; i++) {
+                itemNameSplitted[i] = removeFirstChar(itemNameSplitted[i]);
             }
+            String itemNameTogether = "";
+            for(int i = 0; i < itemNameSplitted.length; i++) {
+                itemNameTogether = itemNameTogether + itemNameSplitted[i];
+            }
+            IceLobby.getInstance().getLogger().info("4");
+            String itemNameInHand;
+            if(p.getInventory().getItemInMainHand().hasItemMeta()) {
+                IceLobby.getInstance().getLogger().info("5");
+                itemNameInHand = ChatColor.stripColor(p.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
+            } else return;
+
+            if(itemNameTogether.equals(itemNameInHand)) {
+                IceLobby.getInstance().getLogger().info("6");
+                if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + slot) == null) return;
+                IceLobby.getInstance().getLogger().info("7");
+                p.performCommand(IceLobby.itemConfig.getString("items.hotbar." + slot + ".command"));
+                event.setCancelled(true);
+            }
+
         }
     }
 

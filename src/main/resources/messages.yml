@@ -63,6 +63,7 @@ commands:
     coins_added: "%prefix% &7The player §a%player% &7has received &e%coins% coins&7!"
     coins_removed: "%prefix% &7You removed &e%coins% coins &7from the player &c%player%&7!"
     coins_set: "%prefix% &7You set the amount of coins from the player &c%player% &7to §e%coins%&7!"
+    not_enough_coins: "%prefix%&cYou do not have enough coins!"
 
   build:
     activated: "%prefix% &7Build mode &aactivated&7!"

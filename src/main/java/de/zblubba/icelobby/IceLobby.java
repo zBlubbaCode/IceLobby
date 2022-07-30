@@ -4,6 +4,8 @@ import de.zblubba.icelobby.commands.*;
 import de.zblubba.icelobby.items.*;
 import de.zblubba.icelobby.listeners.*;
 import de.zblubba.icelobby.shop.EconomySystem;
+import de.zblubba.icelobby.shop.ShopCommand;
+import de.zblubba.icelobby.shop.ShopGUIListener;
 import de.zblubba.icelobby.util.Updater;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -105,6 +107,7 @@ public final class IceLobby extends JavaPlugin {
         pm.registerEvents(new InteractEvent(), this);
         pm.registerEvents(new GeneralListeners(), this);
         pm.registerEvents(new CompassGUIListener(), this);
+        pm.registerEvents(new ShopGUIListener(), this);
     }
     public void registerCommands() {
         getCommand("fly").setExecutor(new FlyCommand());
@@ -120,6 +123,7 @@ public final class IceLobby extends JavaPlugin {
         getCommand("visibility").setExecutor(new VisibilityCommand());
         getCommand("icelobby").setExecutor(new IceLobbyCommand());
         getCommand("coins").setExecutor(new EconomySystem());
+        getCommand("shop").setExecutor(new ShopCommand());
     }
 
     public static void createFiles() {

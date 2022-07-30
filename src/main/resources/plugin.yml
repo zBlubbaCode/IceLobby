@@ -47,3 +47,5 @@ commands:
       - il
   coins:
     description: economysystem for the shop
+  shop:
+    description: opens the shop gui

@@ -17,102 +17,32 @@ items:
   # the hotbar has only 9 slots, so more than 9 will not work.
   # and the slots start at 0 - 8
   hotbar:
-#    '1':
-#      enabled: true
-#      slot: 0
-#      name: '&6Friends &7- &arightclick'
-#      lore: '&7Click to open friends menu'
-#      type: OWN_HEAD
-#      command: friends
-#    '2':
-#      enabled: true
-#      slot: 1
-#      name: '&cPrivate Lobby &7- &arightclick'
-#      lore: '&7Click to get your own lobby!'
-#      type: TNT
-#      command: privatelobby
-#    '3':
-#      enabled: true
-#      slot: 2
-#      name: '&bPlayer Visibility &7- &arightclick'
-#      lore: '&7Click to show only chosen players!'
-#      type: LIME_DYE
-#      command: visibility
-#    '4':
-#      enabled: true
-#      slot: 3
-#      name: '&c'
-#      lore: ''
-#      type: BLACK_STAINED_GLASS_PANE
-#      command: nothing
-#    '5':
-#      enabled: true
-#      slot: 4
-#      name: '&aCompass'
-#      lore: '&7Click to open the compass menu!'
-#      type: COMPASS
-#      command: navigator
-#    '6':
-#      enabled: true
-#      slot: 5
-#      name: '&c'
-#      lore: ''
-#      type: BLACK_STAINED_GLASS_PANE
-#      command: nothing
-#    '7':
-#      enabled: true
-   ##   slot: 6
-   #   name: '&eNick'
-  #    lore: '&7Click to nick'
-  #    type: NAME_TAG
-  #    command: nick
-  ##  '8':
- #     enabled: true
- #     slot: 7
- #     name: '&dShop'
- ##     lore: '&7Click to open the shop!'
-#      type: CHEST
-#      command: shop
-#    '9':
-#      enabled: true
-#      slot: 8
-#      name: '&9Lobbies'
-#      lore: '&7Click to switch lobby!'
-#      type: NETHER_STAR
-#      command: lobbies
-
-
-    '1':
+    '0':
       enabled: true
-      slot: 0
       name: '&aCompass'
       lore: '&7Click to open the compass menu!'
       type: COMPASS
       command: navigator
-    '2':
+    '1':
       enabled: true
-      slot: 1
       name: '&bPlayer Visibility &7- &arightclick'
       lore: '&7Click to show only chosen players!'
       type: LIME_DYE
       command: visibility
-    '3':
+    '4':
       enabled: true
-      slot: 4
       name: '&dShop'
       lore: '&7Click to open the shop!'
       type: CHEST
-      command: shop
-    '4':
+      command: me hi
+    '7':
       enabled: true
-      slot: 7
       name: '&9Lobbies'
       lore: '&7Click to switch lobby!'
       type: NETHER_STAR
       command: lobbies
-    '5':
+    '8':
       enabled: true
-      slot: 8
       name: '&6Friends &7- &arightclick'
       lore: '&7Click to open friends menu'
       type: OWN_HEAD
@@ -165,3 +95,26 @@ compass:
       name: '&ccoming sooon!'
       lore: '&8'
       command: nothing
+shop:
+  gui:
+    enabled: true
+    title: '&cShop'
+    rows: 5
+    filled_with_glass: true
+  items:
+    '0':
+      type: BARRIER
+      name: '&ccoming soon'
+      lore: '&7Price &8- &e1000 Coins'
+      command: ''
+      action: 'buy-rank'
+  action:
+    'buy-rank':
+      get_item:
+        enabled: true
+        type: DIAMOND_BOOTS
+        name: "&6AWDDAW"
+        lore: "&aThis was expensive!"
+        slot: 5
+        price: 1000
+      perform_command: 'me hi'

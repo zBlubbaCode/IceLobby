@@ -26,21 +26,22 @@ public class AddItemsOnJoin implements Listener {
 
     public static void addHotbarItems(Player p) {
         if(IceLobby.itemConfig.getBoolean("items.enabled") && IceLobby.itemConfig.getBoolean("items.addonjoin")) {
-            for(int i = 1; i < 10; i++) {
-                if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + i) == null) return;
-                if(!MessageCollection.getHotbarItemType(i).equals("OWN_HEAD")) {
-                    ItemStack item = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItemType(i))).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build();
-                    Inventory inv = p.getInventory();
-                    if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), item);
-                } else {
-                    ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-                    SkullMeta meta = (SkullMeta) skull.getItemMeta();
-                    meta.setOwningPlayer(p);
-                    meta.setDisplayName(MessageCollection.getHotbarItemName(i));
-                    meta.setLore(Arrays.asList(MessageCollection.getHotbarItemLore(i)));
-                    skull.setItemMeta(meta);
-                    Inventory inv = p.getInventory();
-                    if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(IceLobby.itemConfig.getInt("items.hotbar." + i + ".slot"), skull);
+            for(int i = 0; i < 9; i++) {
+                if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + i) != null) {
+                    if(!MessageCollection.getHotbarItemType(i).equals("OWN_HEAD")) {
+                        ItemStack item = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItemType(i))).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build();
+                        Inventory inv = p.getInventory();
+                        if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(i, item);
+                    } else {
+                        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+                        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+                        meta.setOwningPlayer(p);
+                        meta.setDisplayName(MessageCollection.getHotbarItemName(i));
+                        meta.setLore(Arrays.asList(MessageCollection.getHotbarItemLore(i)));
+                        skull.setItemMeta(meta);
+                        Inventory inv = p.getInventory();
+                        if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(i, skull);
+                    }
                 }
             }
         }

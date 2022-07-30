@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -67,6 +68,14 @@ public class GeneralListeners implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if(!IceLobby.getLobbyWorlds().contains(event.getPlayer().getLocation().getWorld().getName())) return;
+        Player p = event.getPlayer();
+        if(!BuildCommand.getBuildPlayers().contains(p)) {
+            event.setCancelled(true);
+        }
+    }
+    @EventHandler
+    public void onBlockBreak(BlockPlaceEvent event) {
         if(!IceLobby.getLobbyWorlds().contains(event.getPlayer().getLocation().getWorld().getName())) return;
         Player p = event.getPlayer();
         if(!BuildCommand.getBuildPlayers().contains(p)) {

@@ -49,3 +49,7 @@ commands:
     description: economysystem for the shop
   shop:
     description: opens the shop gui
+  lobbies:
+    description: command for the lobby switcher
+  removecosmetics:
+    description: removes all player's cosmetics

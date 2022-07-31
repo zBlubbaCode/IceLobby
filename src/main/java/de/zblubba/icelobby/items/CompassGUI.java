@@ -1,9 +1,11 @@
 package de.zblubba.icelobby.items;
 
+import de.zblubba.icelobby.IceLobby;
 import de.zblubba.icelobby.util.ItemBuilder;
 import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,9 +13,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class CompassGUI implements CommandExecutor {
 
@@ -37,7 +42,20 @@ public class CompassGUI implements CommandExecutor {
 
             for(int i = 0; i < rows*9; i++) {
                 if(itemConfig.get("compass.items." + i) != null) {
-                    inv.setItem(i, new ItemBuilder(Material.valueOf(MessageCollection.getCompassItemType(i))).setName(MessageCollection.getCompassItemName(i)).setLore(MessageCollection.getCompassItemLore(i)).build());
+                    if(!Objects.equals(itemConfig.getString("compass.items." + i + ".type"), "CUSTOM_HEAD")) {
+                        inv.setItem(i, new ItemBuilder(Material.valueOf(MessageCollection.getCompassItemType(i))).setName(MessageCollection.getCompassItemName(i)).setLore(MessageCollection.getCompassItemLore(i)).build());
+                    } else {
+                        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+                        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+                        String owner = IceLobby.itemConfig.getString("compass.items." + i + ".head_owner");
+                        owner = owner.replace("%player%", p.getName());
+                        OfflinePlayer ownerPlayer = Bukkit.getOfflinePlayer(owner);
+                        meta.setOwningPlayer(ownerPlayer);
+                        meta.setDisplayName(MessageCollection.getHotbarItemName(i));
+                        meta.setLore(Arrays.asList(MessageCollection.getHotbarItemLore(i)));
+                        skull.setItemMeta(meta);
+                        inv.setItem(i, skull);
+                    }
                 }
             }
 

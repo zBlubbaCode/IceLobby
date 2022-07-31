@@ -1,5 +1,6 @@
 package de.zblubba.icelobby.listeners;
 
+import de.zblubba.icelobby.IceLobby;
 import de.zblubba.icelobby.commands.GlobalMuteCommand;
 import de.zblubba.icelobby.util.MessageCollection;
 import org.bukkit.Bukkit;
@@ -9,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+import java.util.List;
 
 public class ChatListener implements Listener {
 
@@ -22,6 +25,16 @@ public class ChatListener implements Listener {
                 event.getPlayer().sendMessage(MessageCollection.getGlobalmuteRespone());
             }
         }
+
+        String msg = event.getMessage();
+        msg = msg.replace("<3", "❤");
+        msg = msg.replace(":)", "☻");
+        msg = msg.replace(":D", "☻");
+        msg = msg.replace(":(", "☹");
+        msg = msg.replace("(c)", "©");
+        msg = msg.replace("->", "⇨");
+        msg = msg.replace("<-", "⇦");
+        event.setMessage(msg);
     }
 
     @EventHandler
@@ -33,6 +46,14 @@ public class ChatListener implements Listener {
         if(Bukkit.getServer().getHelpMap().getHelpTopic(args[0]) == null) {
             p.sendMessage(MessageCollection.commandNotExist());
             event.setCancelled(true);
+        }
+
+        List<String> blockedCommands = (List<String>) IceLobby.config.getList("blocked_commands");
+        if(blockedCommands.contains(args[0])) {
+            if(p.hasPermission("icelobby.admin")) {
+                p.sendMessage(MessageCollection.getNoPerms());
+                event.setCancelled(true);
+            }
         }
     }
 }

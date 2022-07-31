@@ -11,6 +11,7 @@ public class ModtListener implements Listener {
 
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
+        if(!IceLobby.messagesConfig.getBoolean("motd.enabled")) return;
         String motdMessageFirst = IceLobby.messagesConfig.getString("motd.firstLine"); motdMessageFirst = ChatColor.translateAlternateColorCodes('&', motdMessageFirst);
         String motdMessageSecond = IceLobby.messagesConfig.getString("motd.secondLine"); motdMessageSecond = ChatColor.translateAlternateColorCodes('&', motdMessageSecond);
 

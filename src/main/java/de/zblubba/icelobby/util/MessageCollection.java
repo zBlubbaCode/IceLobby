@@ -196,6 +196,19 @@ public class MessageCollection {
         return notEnoughCoins;
     }
 
+    public static String getSwitcherTitle() {
+        String title = itemConfig.getString("lobby_switcher.title");
+        title = replaceWithVariables(title);
+        return title;
+    }
+
+    public static String getWorldNamePrefix(int number) {
+        String prefix = itemConfig.getString("lobby_switcher.world_name_prefix");
+        prefix = replaceWithVariables(prefix);
+        prefix = prefix.replace("%number%", String.valueOf(number + 1));
+        return prefix;
+    }
+
 
     public static String replaceWithVariables(String input) {
         if(input == null) {

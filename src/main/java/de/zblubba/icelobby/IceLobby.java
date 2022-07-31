@@ -22,7 +22,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public final class IceLobby extends JavaPlugin {
 
@@ -108,6 +107,7 @@ public final class IceLobby extends JavaPlugin {
         pm.registerEvents(new GeneralListeners(), this);
         pm.registerEvents(new CompassGUIListener(), this);
         pm.registerEvents(new ShopGUIListener(), this);
+        pm.registerEvents(new LobbySwitcherGUIListener(), this);
     }
     public void registerCommands() {
         getCommand("fly").setExecutor(new FlyCommand());
@@ -124,6 +124,8 @@ public final class IceLobby extends JavaPlugin {
         getCommand("icelobby").setExecutor(new IceLobbyCommand());
         getCommand("coins").setExecutor(new EconomySystem());
         getCommand("shop").setExecutor(new ShopCommand());
+        getCommand("lobbies").setExecutor(new LobbySwitcherCommand());
+        getCommand("removecosmetics").setExecutor(new RemovecosmeticsCommand());
     }
 
     public static void createFiles() {
@@ -232,10 +234,3 @@ public final class IceLobby extends JavaPlugin {
     }
 
 }
-
-//TODO: besides OWN_HEAD - add PLAYERS_HEAD for other player's head
-//TODO: Placeholder API
-//TODO: play sound on compass teleport
-
-//TODO: BUG - Visibility onPlayerJoin Player is vibible
-

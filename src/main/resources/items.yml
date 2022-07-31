@@ -8,6 +8,16 @@
 #  for the types try to use the 1.19 names :D
 # ##########################################################
 
+lobby_switcher:
+  enabled: true
+  rows: 1
+  title: "&aLobby Switcher"
+  filled_with_glass: false
+  world_name_prefix: "&c"
+  item_type: ENDER_EYE
+  shown_worlds:
+    - world
+    - lobby
 items:
   enabled: true
   canbemoved: false
@@ -34,7 +44,7 @@ items:
       name: '&dShop'
       lore: '&7Click to open the shop!'
       type: CHEST
-      command: me hi
+      command: shop
     '7':
       enabled: true
       name: '&9Lobbies'
@@ -45,8 +55,9 @@ items:
       enabled: true
       name: '&6Friends &7- &arightclick'
       lore: '&7Click to open friends menu'
-      type: OWN_HEAD
-      command: friends
+      type: CUSTOM_HEAD
+      head_owner: 'TheBestOfMM'
+      command: help friends
 #the gui starts with 0 and ends with the number of your rows multiplied by 9
 compass:
   gui:
@@ -99,22 +110,296 @@ shop:
   gui:
     enabled: true
     title: '&cShop'
-    rows: 5
+    rows: 6
     filled_with_glass: true
   items:
-    '0':
-      type: BARRIER
-      name: '&ccoming soon'
+    '1':
+      type: CUSTOM_HEAD
+      head_owner: 'MHF_COW'
+      name: '&fMoooooooooooooooo'
+      lore: '&7Price &8- &e100 Coins'
+      command: ''
+      action: 'buy-cow_head'
+    '3':
+      type: LEATHER_CHESTPLATE
+      name: '&6Leather T-Shirt'
+      lore: '&7Price &8- &e100 Coins'
+      command: ''
+      action: 'buy-leather_chestplate'
+    '5':
+      type: LEATHER_LEGGINGS
+      name: '&6Leather Shorts'
+      lore: '&7Price &8- &e100 Coins'
+      command: ''
+      action: 'buy-leather_leggings'
+    '7':
+      type: LEATHER_BOOTS
+      name: '&6Leather BOOTS'
+      lore: '&7Price &8- &e100 Coins'
+      command: ''
+      action: 'buy-leather_boots'
+    '10':
+      type: CUSTOM_HEAD
+      head_owner: 'MHF_CHICKEN'
+      name: '&cPick &fPick...'
+      lore: '&7Price &8- &e250 Coins'
+      command: ''
+      action: 'buy-chicken_head'
+    '12':
+      type: GOLDEN_CHESTPLATE
+      name: '&6&lGolden T-Shirt'
+      lore: '&7Price &8- &e250 Coins'
+      command: ''
+      action: 'buy-golden_chestplate'
+    '14':
+      type: GOLDEN_LEGGINGS
+      name: '&6&lGolden Shorts'
+      lore: '&7Price &8- &e250 Coins'
+      command: ''
+      action: 'buy-golden_leggings'
+    '16':
+      type: GOLDEN_BOOTS
+      name: '&6&lGolden Boots'
+      lore: '&7Price &8- &e250 Coins'
+      command: ''
+      action: 'buy-golden_boots'
+    '19':
+      type: CUSTOM_HEAD
+      head_owner: 'MHF_ENDERMAN'
+      name: '&5EnDeRmAn'
+      lore: '&7Price &8- &e500 Coins'
+      command: ''
+      action: 'buy-enderman_head'
+    '21':
+      type: IRON_CHESTPLATE
+      name: '&cIron T-Shirt'
+      lore: '&7Price &8- &e500 Coins'
+      command: ''
+      action: 'buy-iron_chestplate'
+    '23':
+      type: IRON_LEGGINGS
+      name: '&cIron Shorts'
+      lore: '&7Price &8- &e500 Coins'
+      command: ''
+      action: 'buy-iron_leggings'
+    '25':
+      type: IRON_BOOTS
+      name: '&cIron Boots'
+      lore: '&7Price &8- &e500 Coins'
+      command: ''
+      action: 'buy-iron_boots'
+    '28':
+      type: CUSTOM_HEAD
+      head_owner: 'zBlubba'
+      name: '&cAdmin &8| &czBlubba'
+      lore: '&7Price &8- &e1000 Coins%n%%n%&7This Head is from the%n%&esacred &bDeveloper zBlubba'
+      command: ''
+      action: 'buy-zblubba_head'
+    '30':
+      type: DIAMOND_CHESTPLATE
+      name: '&b&lDia&9&lmo&3&lnd &b&lT-&9&lShirt'
       lore: '&7Price &8- &e1000 Coins'
       command: ''
-      action: 'buy-rank'
+      action: 'buy-diamond_chestplate'
+    '32':
+      type: DIAMOND_LEGGINGS
+      name: '&b&lDia&9&lmo&3&lnd &b&lLegg&9&lings'
+      lore: '&7Price &8- &e1000 Coins'
+      command: ''
+      action: 'buy-diamond_leggings'
+    '34':
+      type: DIAMOND_BOOTS
+      name: '&b&lDia&9&lmo&3&lnd &b&lSne&9&lakers'
+      lore: '&7Price &8- &e1000 Coins'
+      command: ''
+      action: 'buy-diamond_boots'
+    '47':
+      type: FISHING_ROD
+      name: '&7Player Grabber'
+      lore: '&7Price &8- &e500 Coins'
+      command: ''
+      action: 'buy-player_grabber'
+    '49':
+      type: BARRIER
+      name: '&cRemove all your cosmetics'
+      lore: ''
+      command: ''
+      action: 'remove_cosmetics'
+    '51':
+      type: PUFFERFISH
+      name: '&bslap your mate'
+      lore: '&7Price &8- &e10 Coins'
+      command: ''
+      action: 'buy-pufferfish'
   action:
-    'buy-rank':
+    'buy-cow_head':
+      get_item:
+        enabled: true
+        type: CUSTOM_HEAD
+        head_owner: 'MHF_COW'
+        name: '&fMoooooooooooooooo'
+        lore: '&7Price &8- &e100 Coins'
+        slot: 39
+        price: 100
+      perform_command: 'nothing'
+    'buy-chicken_head':
+      get_item:
+        enabled: true
+        type: CUSTOM_HEAD
+        head_owner: 'MHF_CHICKEN'
+        name: '&cPick &fPick...'
+        lore: '&7Price &8- &e250 Coins'
+        slot: 39
+        price: 250
+      perform_command: 'nothing'
+    'buy-enderman_head':
+      get_item:
+        enabled: true
+        type: CUSTOM_HEAD
+        head_owner: 'MHF_ENDERMAN'
+        name: '&5EnDeRmAn'
+        lore: '&7Price &8- &e500 Coins'
+        slot: 39
+        price: 250
+      perform_command: 'nothing'
+    'buy-zblubba_head':
+      get_item:
+        enabled: true
+        type: CUSTOM_HEAD
+        head_owner: 'zBlubba'
+        name: '&cAdmin &8| &czBlubba'
+        lore: '&7Price &8- &e1000 Coins'
+        slot: 39
+        price: 1000
+      perform_command: 'nothing'
+    'buy-leather_chestplate':
+      get_item:
+        enabled: true
+        type: LEATHER_CHESTPLATE
+        name: '&6Leather T-Shirt'
+        lore: '&7Price &8- &e100 Coins'
+        slot: 38
+        price: 100
+      perform_command: 'nothing'
+    'buy-golden_chestplate':
+      get_item:
+        enabled: true
+        type: GOLDEN_CHESTPLATE
+        name: '&6&lGolden T-Shirt'
+        lore: '&7Price &8- &e250 Coins'
+        slot: 38
+        price: 250
+      perform_command: 'nothing'
+    'buy-iron_chestplate':
+      get_item:
+        enabled: true
+        type: IRON_CHESTPLATE
+        name: '&cIron T-Shirt'
+        lore: '&7Price &8- &e500 Coins'
+        slot: 38
+        price: 500
+      perform_command: 'nothing'
+    'buy-diamond_chestplate':
+      get_item:
+        enabled: true
+        type: DIAMOND_CHESTPLATE
+        name: '&b&lDia&9&lmo&3&lnd &b&lT-&9&lShirt'
+        lore: '&7Price &8- &e1000 Coins'
+        slot: 38
+        price: 1000
+      perform_command: 'nothing'
+    'buy-leather_leggings':
+      get_item:
+        enabled: true
+        type: LEATHER_LEGGINGS
+        name: '&6Leather Shorts'
+        lore: '&7Price &8- &e100 Coins'
+        slot: 37
+        price: 100
+      perform_command: 'nothing'
+    'buy-golden_leggings':
+      get_item:
+        enabled: true
+        type: GOLDEN_LEGGINGS
+        name: '&6&lGolden Shorts'
+        lore: '&7Price &8- &e250 Coins'
+        slot: 37
+        price: 250
+      perform_command: 'nothing'
+    'buy-iron_leggings':
+      get_item:
+        enabled: true
+        type: IRON_LEGGINGS
+        name: '&cIron Shorts'
+        lore: '&7Price &8- &e500 Coins'
+        slot: 37
+        price: 500
+      perform_command: 'nothing'
+    'buy-diamond_leggings':
+      get_item:
+        enabled: true
+        type: DIAMOND_LEGGINGS
+        name: '&b&lDia&9&lmo&3&lnd &b&lLegg&9&lings'
+        lore: '&7Price &8- &e1000 Coins'
+        slot: 37
+        price: 100
+      perform_command: 'nothing'
+    'buy-leather_boots':
+      get_item:
+        enabled: true
+        type: LEATHER_BOOTS
+        name: '&6Leather Boots'
+        lore: '&7Price &8- &e100 Coins'
+        slot: 36
+        price: 100
+      perform_command: 'nothing'
+    'buy-golden_boots':
+      get_item:
+        enabled: true
+        type: GOLDEN_BOOTS
+        name: '&6&lGolden Boots'
+        lore: '&7Price &8- &e250 Coins'
+        slot: 36
+        price: 250
+      perform_command: 'nothing'
+    'buy-iron_boots':
+      get_item:
+        enabled: true
+        type: IRON_BOOTS
+        name: '&cIron Shorts'
+        lore: '&7Price &8- &e500 Coins'
+        slot: 36
+        price: 500
+      perform_command: 'nothing'
+    'buy-diamond_boots':
       get_item:
         enabled: true
         type: DIAMOND_BOOTS
-        name: "&6AWDDAW"
-        lore: "&aThis was expensive!"
-        slot: 5
+        name: '&b&lDia&9&lmo&3&lnd &b&lSne&9&lakers'
+        lore: '&7Price &8- &e1000 Coins'
+        slot: 36
         price: 1000
-      perform_command: 'me hi'
+      perform_command: 'nothing'
+    'buy-player_grabber':
+      get_item:
+        enabled: true
+        type: FISHING_ROD
+        name: '&7Player Grabber'
+        lore: '&7Price &8- &e500 Coins'
+        slot: 3
+        price: 500
+      perform_command: 'nothing'
+    'buy-pufferfish':
+      get_item:
+        enabled: true
+        type: PUFFERFISH
+        name: '&bslap your mate'
+        lore: '&7Price &8- &e10 Coins'
+        slot: 3
+        price: 10
+      perform_command: 'nothing'
+    'remove_cosmetics':
+      get_item:
+        enabled: false
+      perform_command: 'removecosmetics'
+

@@ -4,6 +4,7 @@ no_permission: "&cYou don't have enough permission to perform this command!"
 must_be_a_player: "&cYou must be a player to perform this command!"
 
 motd:
+  enabled: true
   firstLine: "&bIce&9Lobby &8- &cMinigames Network &8- &7[&a1.8&7-&a1.19&7]"
   secondLine: "                 &a&lNEW Lobby Plugin!"
 

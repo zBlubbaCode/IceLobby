@@ -7,6 +7,7 @@ import de.zblubba.icelobby.items.WarpManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -98,7 +99,11 @@ public class GeneralListeners implements Listener {
         if(event.getEntity() instanceof Player p) {
             if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
             if(config.getBoolean("no_damage")) {
-                event.setCancelled(true);
+                if(event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                    if(p.getInventory().getItemInMainHand().getType() != Material.PUFFERFISH) {
+                        event.setCancelled(false);
+                    } else event.setCancelled(true);
+                } else event.setCancelled(true);
             }
         }
     }

@@ -9,8 +9,18 @@ public class HelpCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(MessageCollection.getHelpList());
+        if(args.length == 0) {
+            sender.sendMessage(MessageCollection.getHelpList());
+        } else if(args.length == 1) {
+            if(args[0].equalsIgnoreCase("friends")) {
 
+                sender.sendMessage("§8----------=======----------");
+                sender.sendMessage("§7A §9Bungeecord §7Friend-System is currently");
+                sender.sendMessage("§7in progress. Make shure you check out my spigot side :D");
+                sender.sendMessage("§8----------=======----------");
+
+            } else sender.sendMessage(MessageCollection.getHelpList());
+        }
         return false;
     }
 }

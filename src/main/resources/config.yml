@@ -41,6 +41,15 @@ no_explosions: true
 stop_despawning_leaves: true
 build_only_lobby_world: true
 
+blocked_commands:
+  - /icanhasbukkit
+  - /plugins
+  - /pl
+  - /?
+  - /about
+  - /ver
+  - /version
+
 warp:
   play_sound: true
   sound: ENTITY_EXPERIENCE_ORB_PICKUP

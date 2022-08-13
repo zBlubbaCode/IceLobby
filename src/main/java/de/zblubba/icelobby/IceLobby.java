@@ -50,6 +50,7 @@ public final class IceLobby extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        //load all the stuff needed
         saveDefaultConfig();
         createFiles();
         loadConfigFiles();
@@ -57,6 +58,7 @@ public final class IceLobby extends JavaPlugin {
         registerListeners();
         registerCommands();
 
+        //get all the worlds, which are marked as lobby
         lobbyWorlds = (ArrayList<String>) config.getList("lobby_worlds");
 
         if(areConfigsLoaded) {
@@ -181,18 +183,18 @@ public final class IceLobby extends JavaPlugin {
             if(Bukkit.getWorld(getLobbyWorlds().get(i)) == null) return;
             World world = Bukkit.getWorld(getLobbyWorlds().get(i));
             switch(defaultWeather) {
-                case "CLEAR" -> {
+                case "CLEAR":
                     world.setThundering(false);
                     world.setStorm(false);
-                }
-                case "RAIN" -> {
+                    break;
+                case "RAIN":
                     world.setThundering(false);
                     world.setStorm(true);
-                }
-                case "THUNDER" -> {
+                    break;
+                case "THUNDER":
                     world.setThundering(true);
                     world.setStorm(true);
-                }
+                    break;
             }
         }
     }
@@ -232,5 +234,17 @@ public final class IceLobby extends JavaPlugin {
     public static IceLobby getInstance() {
         return instance;
     }
+
+
+
+
+
+
+
+    //TODO: set the gadget slot
+    //TODO: implement Vault API + Placeholder API
+
+
+
 
 }

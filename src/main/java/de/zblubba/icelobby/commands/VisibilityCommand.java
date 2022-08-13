@@ -25,27 +25,33 @@ public class VisibilityCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player p) {
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
 
+            //get the current visibility mode
             switch(playerLevel.get(p)) {
-                //only VIP
-                case 0 -> {
+
+                //only VIP mode
+                case 0:
                     setLevel(1, p);
                     p.sendMessage(MessageCollection.visibilityOnlyVIP());
+                    //play the effect and sound for the player if enabled
                     playEffect(p);
 
                     playerHider.put(p, "vip");
+                    //change the item in the players inventory
                     changeColorItem("purple", p);
 
+                    //hide every player without a permission
                     for(Player players : Bukkit.getOnlinePlayers()) {
                         if(!JoinListener.vipPlayerList.contains(players.getName())) {
                             p.hidePlayer(plugin, players);
                         }
                     }
-                }
+                break;
 
                 //none
-                case 1 -> {
+                case 1:
                     setLevel(2, p);
                     playEffect(p);
 
@@ -57,10 +63,10 @@ public class VisibilityCommand implements CommandExecutor {
                     }
 
                     p.sendMessage(MessageCollection.visibilityNobody());
-                }
+                break;
 
                 //all
-                case 2 -> {
+                case 2:
                     setLevel(0, p);
                     playEffect(p);
 
@@ -71,7 +77,7 @@ public class VisibilityCommand implements CommandExecutor {
                         p.showPlayer(plugin, players);
                     }
                     p.sendMessage(MessageCollection.visibilityAll());
-                }
+                break;
 
             }
 
@@ -85,14 +91,17 @@ public class VisibilityCommand implements CommandExecutor {
     }
 
     public void changeColorItem(String color, Player p) {
+        //go through the hotbar of the player
         for(int i = 1; i < 10; i++) {
+            //if the item in the hotbar is the switcher item
             if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + i) == null) return;
             if(IceLobby.itemConfig.getString("items.hotbar." + i + ".type").equals("LIME_DYE")) {
 
+                //check the input and replace the item
                 switch(color) {
-                    case "lime" -> p.getInventory().setItem(i, new ItemBuilder(Material.LIME_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
-                    case "purple" -> p.getInventory().setItem(i, new ItemBuilder(Material.PURPLE_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
-                    case "red" -> p.getInventory().setItem(i, new ItemBuilder(Material.RED_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());
+                    case "lime": p.getInventory().setItem(i, new ItemBuilder(Material.LIME_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());break;
+                    case "purple": p.getInventory().setItem(i, new ItemBuilder(Material.PURPLE_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());break;
+                    case "red": p.getInventory().setItem(i, new ItemBuilder(Material.RED_DYE).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build());break;
                 }
 
             }

@@ -13,7 +13,8 @@ public class ClearChatCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String noPerms = MessageCollection.getNoPerms();
-        int amount = 50;
+        //amount of lines cleared
+        int amount = 100;
 
         if(sender.hasPermission("icelobby.commands.clearchat")) {
             //I use for every players, because broadcastmessage might produce errors

@@ -12,6 +12,7 @@ public class FlyCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+        //Messages set, because i need them more than 1 time
         String alias = "§cAlias: /fly <(on | off)> <(name)>   -   () = optional";
         String flyOff = MessageCollection.getFlyOffMsg();
         String flyOn = MessageCollection.getFlyOnMsg();
@@ -20,14 +21,18 @@ public class FlyCommand implements CommandExecutor {
         String noPerms = MessageCollection.getNoPerms();
         String mustbePlayer = MessageCollection.mustbePlayer();
 
-        if(sender instanceof Player p) {
+        //if the sender is a player
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
             if(p.hasPermission("icelobby.commands.fly")) {
+                //if the command is just "/fly"
                 if(args.length == 0) {
                     if(p.getAllowFlight()) {
                         toggleFly(p, false, flyOff, flyOn, prefix);
                     } else {
                         toggleFly(p, true, flyOff, flyOn, prefix);
                     }
+                    //the player can also add arguments such as "on" or "off"
                 } else if(args.length >= 1) {
                     if(args.length == 1) {
                         if(args[0].equalsIgnoreCase("on")) {
@@ -35,6 +40,7 @@ public class FlyCommand implements CommandExecutor {
                         } else if(args[0].equalsIgnoreCase("off")) {
                             toggleFly(p, false, flyOff, flyOn, prefix);
                         }
+                        //if the player toggles the flight mode for another player
                     } else if(args.length == 2) {
                         Player target = Bukkit.getPlayer(args[0]);
                         if(target != null) {
@@ -44,6 +50,7 @@ public class FlyCommand implements CommandExecutor {
                                 toggleFly(p, true, flyOff, flyOn, prefix);
                             } else p.sendMessage(alias);
                         } else p.sendMessage(prefix + "§cInvalid Player!");
+                        //all "alias" is a wrong syntax
                     } else p.sendMessage(alias);
                 } else p.sendMessage(alias);
             } else p.sendMessage(noPerms);
@@ -53,6 +60,7 @@ public class FlyCommand implements CommandExecutor {
     }
 
     public void toggleFly(Player p, boolean allowFly, String flyOff, String flyOn, String prefix) {
+        //changes the fly mode of the player
         if(allowFly) {
             p.setAllowFlight(true);
             p.sendMessage(prefix + flyOn);

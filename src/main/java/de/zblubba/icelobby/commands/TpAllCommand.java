@@ -19,10 +19,13 @@ public class TpAllCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player p) {
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
             if(p.hasPermission("icelobby.commands.teleportall")) {
+                //get the current location of the player
                 Location loc = p.getLocation();
 
+                //for every player, teleport him to the command sender
                 for(Player players : Bukkit.getOnlinePlayers()) {
                     players.teleport(loc);
                     if(configMsg.getBoolean("commands.tpall.players.enabled")) players.sendMessage(MessageCollection.tpAllPlayersMessage());

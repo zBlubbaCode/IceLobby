@@ -66,12 +66,12 @@ public class JoinListener implements Listener {
             String type = VisibilityCommand.getPlayerHider().get(player);
 
             switch(type) {
-                case "vip" -> {
+                case "vip":
                     if(!p.hasPermission("icelobby.vip")) {
                         player.hidePlayer(IceLobby.getPlugin(IceLobby.class), p);
                     }
-                }
-                case "none" -> player.hidePlayer(IceLobby.getPlugin(IceLobby.class), p);
+                break;
+                case "none": player.hidePlayer(IceLobby.getPlugin(IceLobby.class), p); break;
             }
         }
     }

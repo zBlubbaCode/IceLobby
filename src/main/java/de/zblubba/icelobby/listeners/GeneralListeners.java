@@ -86,7 +86,8 @@ public class GeneralListeners implements Listener {
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
-        if(event.getEntity() instanceof Player p) {
+        if(event.getEntity() instanceof Player) {
+            Player p = (Player) event.getEntity();
             if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
             if(config.getBoolean("unlimited_food")) {
                 event.setCancelled(true);
@@ -96,7 +97,8 @@ public class GeneralListeners implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
-        if(event.getEntity() instanceof Player p) {
+        if(event.getEntity() instanceof Player) {
+            Player p = (Player) event.getEntity();
             if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
             if(config.getBoolean("no_damage")) {
                 if(event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
@@ -134,7 +136,8 @@ public class GeneralListeners implements Listener {
 
     @EventHandler
     public void onEntityPickupItem(EntityPickupItemEvent event) {
-        if(event.getEntity() instanceof Player p) {
+        if(event.getEntity() instanceof Player) {
+            Player p = (Player) event.getEntity();
             if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
             if(config.getBoolean("stop_pickup_items") && !BuildCommand.getBuildPlayers().contains(p)) {
                 event.setCancelled(true);

@@ -21,20 +21,28 @@ public class AddItemsOnJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
+        //clear the player's inventory if enabled
         if(IceLobby.itemConfig.getBoolean("items.clearinvonjoin")) p.getInventory().clear();
 
+        //method, because it's used more than 1 time
         addHotbarItems(p);
     }
 
     public static void addHotbarItems(Player p) {
+        //if the items are enabled in the items.yml config
         if(IceLobby.itemConfig.getBoolean("items.enabled") && IceLobby.itemConfig.getBoolean("items.addonjoin")) {
+            //for every slot of the player's inventory
             for(int i = 0; i < 150; i++) {
+                //if the slot in the config is a item
                 if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + i) != null) {
+                    //if the type is not "CUSTOM_HEAD"
                     if(!MessageCollection.getHotbarItemType(i).equals("CUSTOM_HEAD")) {
+                        //Create the item and add it to the inventory if enabled
                         ItemStack item = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItemType(i))).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build();
                         Inventory inv = p.getInventory();
                         if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(i, item);
                     } else {
+                        //create a skull with a specific skullOwner and add it to the inventory if enabled
                         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
                         SkullMeta meta = (SkullMeta) skull.getItemMeta();
                         String owner = IceLobby.itemConfig.getString("items.hotbar." + i + ".head_owner");

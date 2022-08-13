@@ -23,7 +23,8 @@ public class ShopCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player p) {
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
             if(config.getBoolean("shop.gui.enabled")) {
 
                 int rows = config.getInt("shop.gui.rows");

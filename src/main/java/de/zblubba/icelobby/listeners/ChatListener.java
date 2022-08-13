@@ -17,8 +17,10 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
+        //if the player has the permission, replace &d and the color codes, with color
         event.setMessage(event.getPlayer().hasPermission("icelobby.chat.colored") ? ChatColor.translateAlternateColorCodes('&', event.getMessage()) : event.getMessage());
 
+        //if the globalmute mode is acitvated
         if(GlobalMuteCommand.isMuteStateOn()) {
             if(event.getPlayer().hasPermission("icelobby.chat.bypass")) {
                 event.setCancelled(true);
@@ -26,6 +28,7 @@ public class ChatListener implements Listener {
             }
         }
 
+        //replace the chatmessage with the chatemojis
         String msg = event.getMessage();
         msg = msg.replace("<3", "❤");
         msg = msg.replace(":)", "☻");
@@ -39,6 +42,13 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        /*
+        A return message if the player enters an unknown command
+        for example: /awdaidjaidju982u
+        it returns: Sorry, but this command does not exist! Type /help for a list of useful commands!
+        instead of: Unknown command
+         */
+
         String msg = event.getMessage();
         String[] args = msg.split(" ");
         Player p = event.getPlayer();
@@ -48,6 +58,7 @@ public class ChatListener implements Listener {
             event.setCancelled(true);
         }
 
+        //if the command is in the blocked list and the sender does not have the permission, send a message
         List<String> blockedCommands = (List<String>) IceLobby.config.getList("blocked_commands");
         if(blockedCommands.contains(args[0])) {
             if(p.hasPermission("icelobby.admin")) {

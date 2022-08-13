@@ -27,24 +27,33 @@ public class CompassGUI implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player p) {
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
 
             if(!itemConfig.getBoolean("compass.gui.enabled")) return false;
 
+            //get the rows, how big the inventory should be
             int rows = itemConfig.getInt("compass.gui.rows");
             Inventory inv = Bukkit.createInventory(null, rows * 9, MessageCollection.getCompassGUITitle(p));
 
+            //if enabled, fill the inventory with black stained glass panes
             if(itemConfig.getBoolean("compass.gui.filledwithglass")) {
+                //for every slot of the inventory
                 for(int i = 0; i < rows*9; i++) {
                     inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("§8").setLore("§a").build());
                 }
             }
 
+            //for every slot of the inventory
             for(int i = 0; i < rows*9; i++) {
+                //if the slot is not null in the items.yml config
                 if(itemConfig.get("compass.items." + i) != null) {
+                    //if the type is not "CUSTOM_HEAD"
                     if(!Objects.equals(itemConfig.getString("compass.items." + i + ".type"), "CUSTOM_HEAD")) {
+                        //get the item data and set it to the inventory
                         inv.setItem(i, new ItemBuilder(Material.valueOf(MessageCollection.getCompassItemType(i))).setName(MessageCollection.getCompassItemName(i)).setLore(MessageCollection.getCompassItemLore(i)).build());
                     } else {
+                        //create a skull with a specific Owner and add it to the inventory
                         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
                         SkullMeta meta = (SkullMeta) skull.getItemMeta();
                         String owner = IceLobby.itemConfig.getString("compass.items." + i + ".head_owner");

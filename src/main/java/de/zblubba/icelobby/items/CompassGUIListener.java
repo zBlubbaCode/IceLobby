@@ -14,9 +14,11 @@ public class CompassGUIListener implements Listener {
         Player p = (Player) event.getWhoClicked();
 
         if(event.getCurrentItem() == null) return;
+        //if the title equals the CompassGUITitle
         if(event.getView().getTitle().equals(MessageCollection.getCompassGUITitle(p))) {
             event.setCancelled(true);
             if(IceLobby.itemConfig.get("compass.items." + event.getRawSlot()) != null) {
+                //perform the command of the clicked item
                 p.performCommand(MessageCollection.getCompassItemCommand(event.getRawSlot()));
             }
         }

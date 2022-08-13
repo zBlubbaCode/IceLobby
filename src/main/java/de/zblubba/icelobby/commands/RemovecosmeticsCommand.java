@@ -11,8 +11,10 @@ public class RemovecosmeticsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player p) {
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
 
+            //get the inventory of the player and remove the armor-slots and the gadget slot
             Inventory inv = p.getInventory();
             inv.setItem(3, null);
             inv.setItem(39, null);

@@ -23,17 +23,25 @@ public class BuildCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player p) {
+        // if the sender is a player
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
             if(p.hasPermission("icelobby.commands.build")) {
-                if(!IceLobby.config.getBoolean("build_only_lobby_world")) {
-                    sender.sendMessage("§cBuild Command is only available in the lobby-worlds!");
-                    return false;
+                //if in the config is set that only in specific worlds, you can use the build mode
+                if(IceLobby.config.getBoolean("build_only_lobby_world")) {
+                    //if the player is not in one of the lobby worlds
+                    if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) {
+                        sender.sendMessage("§cBuild Command is only available in the lobby-worlds!");
+                        return false;
+                    }
                 }
 
+                //if the player is not in the build mode
                 if(!buildPlayers.contains(p)) {
                     buildPlayers.add(p);
 
                     p.setGameMode(GameMode.CREATIVE);
+                    //save the inventory of the player in a HashMap
                     playersBuildInventory.put(p, p.getInventory().getContents());
                     p.getInventory().clear();
 
@@ -41,8 +49,10 @@ public class BuildCommand implements CommandExecutor {
                 } else {
                     buildPlayers.remove(p);
 
+                    //get the defaultGameMode set in the config
                     GameMode defaultGameMode = GameMode.valueOf(IceLobby.config.getString("default_gamemode"));
                     p.setGameMode(defaultGameMode);
+                    //set the inventory of the player from the HashMap
                     p.getInventory().setContents(playersBuildInventory.get(p));
 
                     p.sendMessage(MessageCollection.getBuildModeOff());

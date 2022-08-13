@@ -10,8 +10,10 @@ public class HelpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length == 0) {
+            //get the message of the config and send it
             sender.sendMessage(MessageCollection.getHelpList());
         } else if(args.length == 1) {
+            //for the friends hotbar-item
             if(args[0].equalsIgnoreCase("friends")) {
 
                 sender.sendMessage("§8----------=======----------");

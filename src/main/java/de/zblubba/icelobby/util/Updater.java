@@ -64,22 +64,22 @@ public class Updater {
         compareVersion();
 
         switch(resultUpdate) {
-            case AVAILABLE -> {
+            case AVAILABLE:
                 IceLobby.getInstance().getLogger().info("A new version of the plugin was found. Please install it on spigotmc.org!");
                 IceLobby.isUpdateAvailable = true;
-            }
-            case UP_TO_DATE -> {
+                break;
+            case UP_TO_DATE:
                 IceLobby.getInstance().getLogger().info("This plugin is up to date :D");
                 IceLobby.isUpdateAvailable = false;
-            }
-            case ERROR -> {
+                break;
+            case ERROR:
                 IceLobby.getInstance().getLogger().info("Connection lost to spigotmc.org...");
                 IceLobby.isUpdateAvailable = false;
-            }
-            default -> {
+                break;
+            default:
                 IceLobby.getInstance().getLogger().info("Connection lost to spigotmc.org....");
                 IceLobby.isUpdateAvailable = false;
-            }
+                break;
         }
     }
 }

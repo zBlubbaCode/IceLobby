@@ -3,6 +3,7 @@ package de.zblubba.icelobby;
 import de.zblubba.icelobby.commands.*;
 import de.zblubba.icelobby.items.*;
 import de.zblubba.icelobby.listeners.*;
+import de.zblubba.icelobby.listeners.V1_9.GeneralListenersV1_9;
 import de.zblubba.icelobby.shop.EconomySystem;
 import de.zblubba.icelobby.shop.ShopCommand;
 import de.zblubba.icelobby.shop.ShopGUIListener;
@@ -43,8 +44,14 @@ public final class IceLobby extends JavaPlugin {
     public static File fileMoney = new File("plugins/IceLobby", "money.yml");
     public static FileConfiguration moneyConfig = YamlConfiguration.loadConfiguration(fileMessages);
 
+    public static File fileWarps = new File("plugins/IceLobby", "warps.yml");
+    public static FileConfiguration warpConfig = YamlConfiguration.loadConfiguration(fileWarps);
+
     public static Updater updater;
     public static ArrayList<String> lobbyWorlds = new ArrayList<>();
+
+    public static String server = Bukkit.getServer().getClass().getPackage().getName();
+    public static String version = server.substring(server.lastIndexOf('.') + 1);
 
     @Override
     public void onEnable() {
@@ -80,6 +87,7 @@ public final class IceLobby extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§7Version§8: §b" + IceLobby.getInstance().getDescription().getVersion());
         Bukkit.getConsoleSender().sendMessage("§7OS§8: §b" + System.getProperty("os.name"));
         Bukkit.getConsoleSender().sendMessage("§7Java-Version§8: §b" + System.getProperty("java.version"));
+        Bukkit.getConsoleSender().sendMessage("§7Server-Version§8: §b" + version);
         Bukkit.getConsoleSender().sendMessage("");
         Bukkit.getConsoleSender().sendMessage("§8--------===========--------");
     }
@@ -94,6 +102,7 @@ public final class IceLobby extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§7Version§8: §b" + IceLobby.getInstance().getDescription().getVersion());
         Bukkit.getConsoleSender().sendMessage("§7OS§8: §b" + System.getProperty("os.name"));
         Bukkit.getConsoleSender().sendMessage("§7Java-Version§8: §b" + System.getProperty("java.version"));
+        Bukkit.getConsoleSender().sendMessage("§7Server-Version§8: §b" + version);
         Bukkit.getConsoleSender().sendMessage("");
         Bukkit.getConsoleSender().sendMessage("§8--------===========--------");
     }
@@ -106,10 +115,18 @@ public final class IceLobby extends JavaPlugin {
         pm.registerEvents(new AddItemsOnJoin(), this);
         pm.registerEvents(new ChatListener(), this);
         pm.registerEvents(new InteractEvent(), this);
-        pm.registerEvents(new GeneralListeners(), this);
         pm.registerEvents(new CompassGUIListener(), this);
         pm.registerEvents(new ShopGUIListener(), this);
         pm.registerEvents(new LobbySwitcherGUIListener(), this);
+
+        //register the commands only available in 1.9 or higher
+        String versionStr = version.substring(1); // Remove v prefix
+        int versionInt = Integer.parseInt(versionStr.split("_")[0]) * 1000 + Integer.parseInt(versionStr.split("_")[1]) * 10;
+        if(versionInt >= 1090) {
+            pm.registerEvents(new GeneralListenersV1_9(), this);
+        } else {
+            pm.registerEvents(new GeneralListeners(), this);
+        }
     }
     public void registerCommands() {
         getCommand("fly").setExecutor(new FlyCommand());
@@ -131,7 +148,7 @@ public final class IceLobby extends JavaPlugin {
     }
 
     public static void createFiles() {
-        if(!IceLobby.fileItem.exists() || !IceLobby.fileMessages.exists() || !IceLobby.fileMoney.exists()) {
+        if(!IceLobby.fileItem.exists() || !IceLobby.fileMessages.exists() || !IceLobby.fileMoney.exists() || !IceLobby.fileWarps.exists()) {
             IceLobby.getInstance().getLogger().info("One or more files were not found. Creating...");
             if(!IceLobby.fileItem.exists()) {
                 IceLobby.fileItem.getParentFile().mkdirs();
@@ -145,6 +162,10 @@ public final class IceLobby extends JavaPlugin {
                 IceLobby.fileMoney.getParentFile().mkdirs();
                 IceLobby.getInstance().saveResource("money.yml", false);
             }
+            if(!IceLobby.fileWarps.exists()) {
+                IceLobby.fileWarps.getParentFile().mkdirs();
+                IceLobby.getInstance().saveResource("warps.yml", false);
+            }
         }
     }
 
@@ -155,6 +176,7 @@ public final class IceLobby extends JavaPlugin {
             IceLobby.itemConfig.load(fileItem);
             IceLobby.messagesConfig.load(fileMessages);
             IceLobby.moneyConfig.load(fileMoney);
+            IceLobby.warpConfig.load(fileWarps);
 
             areConfigsLoaded = true;
 
@@ -229,6 +251,15 @@ public final class IceLobby extends JavaPlugin {
 
     public static void stopInterval() {
         Bukkit.getScheduler().cancelTask(taskid);
+    }
+
+    static String versionStr = version.substring(1); // Remove v prefix
+    static int versionInt = Integer.parseInt(versionStr.split("_")[0]) * 1000 + Integer.parseInt(versionStr.split("_")[1]) * 10;
+
+    public static int getVersion() {return versionInt;}
+    public static boolean isNewerThanVersion1_9() {
+        if(getVersion() >= 1090) {return true;}
+        else return false;
     }
 
     public static IceLobby getInstance() {

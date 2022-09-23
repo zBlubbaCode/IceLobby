@@ -28,9 +28,11 @@ public class LobbySwitcherCommand implements CommandExecutor {
             // create the switcher inventory
 
             //if the option is enabled, fill the hole inventory with black glass panes
-            if(config.getBoolean("lobby_switcher.filled_with_glass")) {
-                for(int i = 0; i < rows*9; i++) {
-                    inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("&c").setLore("&c").build());
+            if(IceLobby.isNewerThanVersion1_9()) {
+                if(config.getBoolean("lobby_switcher.filled_with_glass")) {
+                    for(int i = 0; i < rows*9; i++) {
+                        inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("&c").setLore("&c").build());
+                    }
                 }
             }
 

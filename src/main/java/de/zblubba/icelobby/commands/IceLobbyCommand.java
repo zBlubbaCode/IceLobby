@@ -33,7 +33,7 @@ public class IceLobbyCommand implements CommandExecutor {
                                 IceLobby.getInstance().saveDefaultConfig();
                             }
 
-                            if (!IceLobby.fileItem.exists() || !IceLobby.fileMessages.exists() || !IceLobby.fileMoney.exists()) {
+                            if (!IceLobby.fileItem.exists() || !IceLobby.fileMessages.exists() || !IceLobby.fileMoney.exists() || !IceLobby.fileWarps.exists()) {
                                 IceLobby.getInstance().getLogger().info("One or more files were not found. Creating...");
                                 if (!IceLobby.fileItem.exists()) {
                                     IceLobby.fileItem.getParentFile().mkdirs();
@@ -47,12 +47,17 @@ public class IceLobbyCommand implements CommandExecutor {
                                     IceLobby.fileMoney.getParentFile().mkdirs();
                                     IceLobby.getInstance().saveResource("money.yml", false);
                                 }
+                                if(!IceLobby.fileWarps.exists()) {
+                                    IceLobby.fileWarps.getParentFile().mkdirs();
+                                    IceLobby.getInstance().saveResource("warps.yml", false);
+                                }
                             }
 
                             IceLobby.config.load(IceLobby.file);
                             IceLobby.messagesConfig.load(IceLobby.fileMessages);
                             IceLobby.itemConfig.load(IceLobby.fileItem);
                             IceLobby.moneyConfig.load(IceLobby.fileMoney);
+                            IceLobby.warpConfig.load(IceLobby.fileWarps);
 
                             IceLobby.createFiles();
                             IceLobby.loadConfigFiles();

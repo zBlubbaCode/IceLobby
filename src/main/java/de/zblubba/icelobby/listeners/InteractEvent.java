@@ -37,7 +37,11 @@ public class InteractEvent implements Listener {
 
         int slot = p.getInventory().getHeldItemSlot();
         if(IceLobby.itemConfig.get("items.hotbar." + slot) != null) {
-            if(p.getInventory().getItemInMainHand() == null) return;
+            if(IceLobby.isNewerThanVersion1_9()) {
+                if(p.getInventory().getItemInMainHand() == null) return;
+            } else {
+                if(p.getItemInHand() == null) return;
+            }
             if(!IceLobby.itemConfig.getBoolean("items.hotbar." + slot + ".enabled")) return;
             String itemName = IceLobby.itemConfig.getString("items.hotbar." + slot + ".name");
             String[] itemNameSplitted = itemName.split("&");
@@ -48,10 +52,18 @@ public class InteractEvent implements Listener {
             for(int i = 0; i < itemNameSplitted.length; i++) {
                 itemNameTogether = itemNameTogether + itemNameSplitted[i];
             }
-            String itemNameInHand;
-            if(p.getInventory().getItemInMainHand().hasItemMeta()) {
-                itemNameInHand = ChatColor.stripColor(p.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
-            } else return;
+            String itemNameInHand = null;
+
+            if(IceLobby.isNewerThanVersion1_9()) {
+                if(p.getInventory().getItemInMainHand().hasItemMeta()) {
+                    itemNameInHand = ChatColor.stripColor(p.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
+                } else return;
+            } else {
+                if(p.getItemInHand().hasItemMeta()) {
+                    itemNameInHand = ChatColor.stripColor(p.getItemInHand().getItemMeta().getDisplayName());
+                }
+            }
+
 
             if(itemNameTogether.equals(itemNameInHand)) {
                 if(IceLobby.itemConfig.getConfigurationSection("items.hotbar." + slot) == null) return;

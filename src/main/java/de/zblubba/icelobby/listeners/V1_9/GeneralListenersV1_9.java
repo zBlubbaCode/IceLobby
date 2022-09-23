@@ -1,10 +1,8 @@
-package de.zblubba.icelobby.listeners;
+package de.zblubba.icelobby.listeners.V1_9;
 
 import de.zblubba.icelobby.IceLobby;
 import de.zblubba.icelobby.commands.BuildCommand;
 import de.zblubba.icelobby.items.AddItemsOnJoin;
-import de.zblubba.icelobby.items.WarpManager;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -24,13 +22,12 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 import java.io.File;
 
-public class GeneralListeners implements Listener {
+public class GeneralListenersV1_9 implements Listener {
 
     public static File itemFile = new File("plugins/IceLobby", "items.yml");
     static FileConfiguration itemConfig = YamlConfiguration.loadConfiguration(itemFile);
@@ -52,6 +49,16 @@ public class GeneralListeners implements Listener {
         if(!IceLobby.getLobbyWorlds().contains(event.getWhoClicked().getLocation().getWorld().getName())) return;
         if(!itemConfig.getBoolean("canbemoved")) {
             if(!BuildCommand.getBuildPlayers().contains(event.getWhoClicked())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event) {
+        if(!IceLobby.getLobbyWorlds().contains(event.getPlayer().getLocation().getWorld().getName())) return;
+        if(!itemConfig.getBoolean("canbemoved")) {
+            if(!BuildCommand.getBuildPlayers().contains(event.getPlayer())) {
                 event.setCancelled(true);
             }
         }
@@ -121,6 +128,17 @@ public class GeneralListeners implements Listener {
         if(!IceLobby.getLobbyWorlds().contains(event.getBlock().getLocation().getWorld().getName())) return;
         if(config.getBoolean("stop_despawning_leaves")) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onEntityPickupItem(EntityPickupItemEvent event) {
+        if(event.getEntity() instanceof Player) {
+            Player p = (Player) event.getEntity();
+            if(!IceLobby.getLobbyWorlds().contains(p.getLocation().getWorld().getName())) return;
+            if(config.getBoolean("stop_pickup_items") && !BuildCommand.getBuildPlayers().contains(p)) {
+                event.setCancelled(true);
+            }
         }
     }
 

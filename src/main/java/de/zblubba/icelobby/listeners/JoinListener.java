@@ -82,7 +82,9 @@ public class JoinListener implements Listener {
             taskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(IceLobby.getPlugin(IceLobby.class), () -> {
                 for(Player players : Bukkit.getOnlinePlayers()) {
                     if(IceLobby.getLobbyWorlds().contains(players.getLocation().getWorld().getName())) {
-                        players.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessageCollection.actionbarMessage(players)));
+                        if(IceLobby.getVersion() >= 1090) {
+                            players.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessageCollection.actionbarMessage(players)));
+                        }
                     }
                 }
             }, 0, 40);

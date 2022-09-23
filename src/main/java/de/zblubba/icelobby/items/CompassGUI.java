@@ -37,10 +37,12 @@ public class CompassGUI implements CommandExecutor {
             Inventory inv = Bukkit.createInventory(null, rows * 9, MessageCollection.getCompassGUITitle(p));
 
             //if enabled, fill the inventory with black stained glass panes
-            if(itemConfig.getBoolean("compass.gui.filledwithglass")) {
-                //for every slot of the inventory
-                for(int i = 0; i < rows*9; i++) {
-                    inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("§8").setLore("§a").build());
+            if(IceLobby.isNewerThanVersion1_9()) {
+                if(itemConfig.getBoolean("compass.gui.filledwithglass")) {
+                    //for every slot of the inventory
+                    for(int i = 0; i < rows*9; i++) {
+                        inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("§8").setLore("§a").build());
+                    }
                 }
             }
 

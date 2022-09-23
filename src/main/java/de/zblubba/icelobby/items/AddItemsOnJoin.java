@@ -38,22 +38,30 @@ public class AddItemsOnJoin implements Listener {
                     //if the type is not "CUSTOM_HEAD"
                     if(!MessageCollection.getHotbarItemType(i).equals("CUSTOM_HEAD")) {
                         //Create the item and add it to the inventory if enabled
-                        ItemStack item = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItemType(i))).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build();
-                        Inventory inv = p.getInventory();
-                        if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(i, item);
+                        try {
+                            ItemStack item = new ItemBuilder(Material.valueOf(MessageCollection.getHotbarItemType(i))).setName(MessageCollection.getHotbarItemName(i)).setLore(MessageCollection.getHotbarItemLore(i)).build();
+                            Inventory inv = p.getInventory();
+                            if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(i, item);
+                        } catch(Exception e) {
+                            IceLobby.getInstance().getLogger().info("!!! Item does not exists! Error happend in HotbarItems");
+                        }
                     } else {
                         //create a skull with a specific skullOwner and add it to the inventory if enabled
-                        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-                        SkullMeta meta = (SkullMeta) skull.getItemMeta();
-                        String owner = IceLobby.itemConfig.getString("items.hotbar." + i + ".head_owner");
-                        owner = owner.replace("%player%", p.getName());
-                        OfflinePlayer ownerPlayer = Bukkit.getOfflinePlayer(owner);
-                        meta.setOwningPlayer(ownerPlayer);
-                        meta.setDisplayName(MessageCollection.getHotbarItemName(i));
-                        meta.setLore(Arrays.asList(MessageCollection.getHotbarItemLore(i)));
-                        skull.setItemMeta(meta);
-                        Inventory inv = p.getInventory();
-                        if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(i, skull);
+                        try {
+                            ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+                            SkullMeta meta = (SkullMeta) skull.getItemMeta();
+                            String owner = IceLobby.itemConfig.getString("items.hotbar." + i + ".head_owner");
+                            owner = owner.replace("%player%", p.getName());
+                            OfflinePlayer ownerPlayer = Bukkit.getOfflinePlayer(owner);
+                            meta.setOwningPlayer(ownerPlayer);
+                            meta.setDisplayName(MessageCollection.getHotbarItemName(i));
+                            meta.setLore(Arrays.asList(MessageCollection.getHotbarItemLore(i)));
+                            skull.setItemMeta(meta);
+                            Inventory inv = p.getInventory();
+                            if(IceLobby.itemConfig.getBoolean("items.hotbar." + i + ".enabled")) inv.setItem(i, skull);
+                        } catch (Exception e) {
+                            IceLobby.getInstance().getLogger().info("!!! Custom Heads do not exists in lower versions of minecraft. A fix will probably released soon");
+                        }
                     }
                 }
             }

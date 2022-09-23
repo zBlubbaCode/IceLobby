@@ -30,9 +30,11 @@ public class ShopCommand implements CommandExecutor {
                 int rows = config.getInt("shop.gui.rows");
                 Inventory inv = Bukkit.createInventory(null, rows * 9, MessageCollection.getShopGUITitle(p));
 
-                if(config.getBoolean("shop.gui.filled_with_glass")) {
-                    for(int i = 0; i < rows * 9; i++) {
-                        inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("§8").build());
+                if(IceLobby.isNewerThanVersion1_9()) {
+                    if(config.getBoolean("shop.gui.filled_with_glass")) {
+                        for(int i = 0; i < rows * 9; i++) {
+                            inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("§8").build());
+                        }
                     }
                 }
 
